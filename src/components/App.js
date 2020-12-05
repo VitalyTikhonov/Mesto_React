@@ -2,25 +2,31 @@ import { useState } from 'react';
 import Header from './Header';
 import Main from './Main';
 import Popup from './Popup';
-import PopupForm from './PopupForm';
-// import PopupViewImage from './PopupViewImage';
 // import Footer from './Footer';
 
 function App() {
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isAddCardPopupOpen, setIsAddCardPopupOpen] = useState(false);
+  const [formsMap] = useState({
+    editProfile: { name: 'editProfile', title: 'Редактировать профиль' },
+    changePhoto: { name: 'changePhoto', title: 'Сменить аватар' },
+    newPlace: { name: 'newPlace', title: 'Новое место' }
+  });
 
-  function handleEditProfileControlClick() {
-    setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
-  }
-
-  function handleNewPlaceControlClick() {
-    setIsAddCardPopupOpen(!isAddCardPopupOpen);
-  }
-
-  function handleEditAvatarControlClick() {
-    setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
+  function handlePopupControlClick(event) {
+    switch (event.target.id) {
+      case `${formsMap.editProfile.name}Elem`:
+        setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
+        break;
+      case `${formsMap.changePhoto.name}Elem`:
+        setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
+        break;
+      case `${formsMap.newPlace.name}Elem`:
+        setIsAddCardPopupOpen(!isAddCardPopupOpen);
+        break;
+      default:
+    }
   }
 
   return (
@@ -28,22 +34,20 @@ function App() {
       <Header />
 
       <Main
-        handleEditProfileClick={handleEditProfileControlClick}
-        handleNewPlaceClick={handleNewPlaceControlClick}
-        handleEditAvatarClick={handleEditAvatarControlClick}
+        formsMap={formsMap}
+        handlePopupControlClick={handlePopupControlClick}
       />
 
-      <Popup isOpen={isEditProfilePopupOpen} handleClosePopupClick={handleEditProfileControlClick}>
-        <PopupForm name='editProfile' title='Редактировать профиль'/>
-      </Popup>
+      { isEditProfilePopupOpen && (
+        <Popup formConfig={formsMap.editProfile} handlePopupControlClick={handlePopupControlClick} />
+      )}
+      { isEditAvatarPopupOpen && (
+        <Popup formConfig={formsMap.changePhoto} handlePopupControlClick={handlePopupControlClick} />
+      )}
+      { isAddCardPopupOpen && (
+        <Popup formConfig={formsMap.newPlace} handlePopupControlClick={handlePopupControlClick} />
+      )}
 
-      <Popup isOpen={isEditAvatarPopupOpen} handleClosePopupClick={handleEditAvatarControlClick}>
-        <PopupForm name='changePhoto' title='Сменить аватар'/>
-      </Popup>
-
-      <Popup isOpen={isAddCardPopupOpen} handleClosePopupClick={handleNewPlaceControlClick}>
-        <PopupForm name='newPlace' title='Новое место'/>
-      </Popup>
     </div>
   );
 }
