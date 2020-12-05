@@ -3,16 +3,13 @@ import Header from './Header';
 import Main from './Main';
 import Popup from './Popup';
 // import Footer from './Footer';
+import { formsMapCongig } from '../configs/constants';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isAddCardPopupOpen, setIsAddCardPopupOpen] = useState(false);
-  const [formsMap] = useState({
-    editProfile: { name: 'editProfile', title: 'Редактировать профиль' },
-    changePhoto: { name: 'changePhoto', title: 'Сменить аватар' },
-    newPlace: { name: 'newPlace', title: 'Новое место' }
-  });
+  const [formsMap] = useState(formsMapCongig);
 
   function handlePopupControlClick(event) {
     switch (event.target.id) {
@@ -39,13 +36,25 @@ function App() {
       />
 
       { isEditProfilePopupOpen && (
-        <Popup formConfig={formsMap.editProfile} handlePopupControlClick={handlePopupControlClick} />
+        <Popup
+          formConfig={formsMap.editProfile}
+          formsMap={formsMap}
+          handlePopupControlClick={handlePopupControlClick}
+        />
       )}
       { isEditAvatarPopupOpen && (
-        <Popup formConfig={formsMap.changePhoto} handlePopupControlClick={handlePopupControlClick} />
+        <Popup
+          formConfig={formsMap.changePhoto}
+          formsMap={formsMap}
+          handlePopupControlClick={handlePopupControlClick}
+        />
       )}
       { isAddCardPopupOpen && (
-        <Popup formConfig={formsMap.newPlace} handlePopupControlClick={handlePopupControlClick} />
+        <Popup
+          formConfig={formsMap.newPlace}
+          formsMap={formsMap}
+          handlePopupControlClick={handlePopupControlClick}
+        />
       )}
 
     </div>
