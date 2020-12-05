@@ -3,7 +3,7 @@ import Header from './Header';
 import Main from './Main';
 import Popup from './Popup';
 import PopupForm from './PopupForm';
-import PopupViewImage from './PopupViewImage';
+// import PopupViewImage from './PopupViewImage';
 // import Footer from './Footer';
 
 function App() {
@@ -11,48 +11,38 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddCardPopupOpen, setIsAddCardPopupOpen] = useState(false);
 
-  function handleEditProfileClick(e) {
-    setIsEditProfilePopupOpen(true);
+  function handleEditProfileControlClick() {
+    setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
   }
 
-  function handleNewPlaceClick(e) {
-    setIsAddCardPopupOpen(true);
+  function handleNewPlaceControlClick() {
+    setIsAddCardPopupOpen(!isAddCardPopupOpen);
   }
 
-  function handleEditAvatarClick(e) {
-    setIsEditAvatarPopupOpen(true);
+  function handleEditAvatarControlClick() {
+    setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
   }
-
-  // function handleEditProfileClick(e) {
-  // }
-
-  // function handleEditProfileClick(e) {
-  // }
 
   return (
     <div className="root">
       <Header />
 
       <Main
-        handleEditProfileClick={handleEditProfileClick}
-        handleNewPlaceClick={handleNewPlaceClick}
-        handleEditAvatarClick={handleEditAvatarClick}
+        handleEditProfileClick={handleEditProfileControlClick}
+        handleNewPlaceClick={handleNewPlaceControlClick}
+        handleEditAvatarClick={handleEditAvatarControlClick}
       />
 
-      <Popup isOpen={isEditProfilePopupOpen}>
+      <Popup isOpen={isEditProfilePopupOpen} handleClosePopupClick={handleEditProfileControlClick}>
         <PopupForm name='editProfile' title='Редактировать профиль'/>
       </Popup>
 
-      <Popup isOpen={isEditAvatarPopupOpen}>
+      <Popup isOpen={isEditAvatarPopupOpen} handleClosePopupClick={handleEditAvatarControlClick}>
         <PopupForm name='changePhoto' title='Сменить аватар'/>
       </Popup>
 
-      <Popup isOpen={isAddCardPopupOpen}>
+      <Popup isOpen={isAddCardPopupOpen} handleClosePopupClick={handleNewPlaceControlClick}>
         <PopupForm name='newPlace' title='Новое место'/>
-      </Popup>
-
-      <Popup>
-        <PopupViewImage />
       </Popup>
     </div>
   );
