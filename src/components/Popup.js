@@ -26,7 +26,7 @@ function Popup(props) {
 
 
   return (
-    <div className={`popup popup_is-open popup_${name}`} id={name + 'Popup'} tabIndex={0}>
+    <div className="popup popup_is-open" id={name + 'Popup'} tabIndex={0}>
       <div className="popup__slot">
         <img
           src={closeImage}
