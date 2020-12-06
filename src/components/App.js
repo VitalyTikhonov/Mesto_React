@@ -9,9 +9,12 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isAddCardPopupOpen, setIsAddCardPopupOpen] = useState(false);
+  // const [currentPopup, setCurrentPopup] = useState();
   const [formsMap] = useState(formsMapCongig);
 
   function handlePopupControlClick(event) {
+    // if (event.target.id) {
+    // setCurrentPopup(event.target.id);
     switch (event.target.id) {
       case `${formsMap.editProfile.name}Elem`:
         setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
@@ -23,6 +26,8 @@ function App() {
         setIsAddCardPopupOpen(!isAddCardPopupOpen);
         break;
       default:
+    // }} else {
+    //   currentPopup
     }
   }
 
