@@ -3,24 +3,31 @@ import Header from './Header';
 import Main from './Main';
 import Popup from './Popup';
 // import Footer from './Footer';
-import { formsMapCongig } from '../configs/constants';
+import { popupConfig } from '../configs/constants';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isAddCardPopupOpen, setIsAddCardPopupOpen] = useState(false);
-  const [formsMap] = useState(formsMapCongig);
+  const [popupMap] = useState(popupConfig);
+  const [selectedCard, setSelectedCard] = useState(null);
 
-  function handlePopupControlClick(event) {
+  function handlePopupControlAction(event) {
     switch (event.target.id) {
-      case `${formsMap.editProfile.name}Elem`:
+      case `${popupMap.form.editProfile.name}OpenElem`:
         setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
         break;
-      case `${formsMap.changePhoto.name}Elem`:
+      case `${popupMap.form.changePhoto.name}OpenElem`:
         setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
         break;
-      case `${formsMap.newPlace.name}Elem`:
+      case `${popupMap.form.newPlace.name}OpenElem`:
         setIsAddCardPopupOpen(!isAddCardPopupOpen);
+        break;
+      case `${popupMap.imageZoom.name}OpenElem`:
+        const link = event.target.imageUrl;
+        link
+          ? setSelectedCard(link)
+          : setSelectedCard(null);
         break;
       default:
     }
@@ -31,29 +38,36 @@ function App() {
       <Header />
 
       <Main
-        formsMap={formsMap}
-        handlePopupControlClick={handlePopupControlClick}
+        popupMap={popupMap}
+        handlePopupControlAction={handlePopupControlAction}
       />
 
       { isEditProfilePopupOpen && (
         <Popup
-          formConfig={formsMap.editProfile}
-          formsMap={formsMap}
-          handlePopupControlClick={handlePopupControlClick}
+          contentsConfig={popupMap.form.editProfile}
+          formsMap={popupMap.form}
+          handlePopupControlAction={handlePopupControlAction}
         />
       )}
       { isEditAvatarPopupOpen && (
         <Popup
-          formConfig={formsMap.changePhoto}
-          formsMap={formsMap}
-          handlePopupControlClick={handlePopupControlClick}
+          contentsConfig={popupMap.form.changePhoto}
+          formsMap={popupMap.form}
+          handlePopupControlAction={handlePopupControlAction}
         />
       )}
       { isAddCardPopupOpen && (
         <Popup
-          formConfig={formsMap.newPlace}
-          formsMap={formsMap}
-          handlePopupControlClick={handlePopupControlClick}
+          contentsConfig={popupMap.form.newPlace}
+          formsMap={popupMap.form}
+          handlePopupControlAction={handlePopupControlAction}
+        />
+      )}
+      { selectedCard && (
+        <Popup
+          contentsConfig={popupMap.imageZoom}
+          card={{ selectedCard, setSelectedCard }}
+          handlePopupControlAction={handlePopupControlAction}
         />
       )}
 

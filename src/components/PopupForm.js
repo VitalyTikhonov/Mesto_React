@@ -1,5 +1,5 @@
 function PopupForm(props) {
-  const { formsMap, formConfig: { name, title } } = props;
+  const { formsMap, contentsConfig: { name, title } } = props;
 
   return (
     <div className="popup__content popup__content_type_form">
