@@ -41,7 +41,7 @@ function Popup(props) {
           onClick={handlePopupControlAction}
         />
         {formsMap && <PopupForm formsMap={formsMap} contentsConfig={contentsConfig} />}
-        {card && <PopupImageView selectedCard={card.selectedCard} />}
+        {card && <PopupImageView card={card} />}
       </div>
     </div>
   )

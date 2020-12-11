@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import api from "../utils/Api";
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Header from './Header';
 import Main from './Main';
 import Popup from './Popup';
@@ -11,6 +13,17 @@ function App() {
   const [isAddCardPopupOpen, setIsAddCardPopupOpen] = useState(false);
   const [popupMap] = useState(popupConfig);
   const [selectedCard, setSelectedCard] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(function () {
+    async function fetchUserData() {
+      const currentUserData = await api.getUserInfo();
+      setCurrentUser(currentUserData);
+      // const { name, about, avatar } = await api.getUserInfo();
+      // setCurrentUser({ name, about, avatar });
+    }
+    fetchUserData();
+  }, []);
 
   function handlePopupControlAction(event) {
     switch (event.target.id) {
@@ -34,44 +47,46 @@ function App() {
   }
 
   return (
-    <div className="root">
-      <Header />
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="root">
+        <Header />
 
-      <Main
-        popupMap={popupMap}
-        handlePopupControlAction={handlePopupControlAction}
-      />
+        <Main
+          popupMap={popupMap}
+          handlePopupControlAction={handlePopupControlAction}
+        />
 
-      { isEditProfilePopupOpen && (
-        <Popup
-          contentsConfig={popupMap.form.editProfile}
-          formsMap={popupMap.form}
-          handlePopupControlAction={handlePopupControlAction}
-        />
-      )}
-      { isEditAvatarPopupOpen && (
-        <Popup
-          contentsConfig={popupMap.form.changePhoto}
-          formsMap={popupMap.form}
-          handlePopupControlAction={handlePopupControlAction}
-        />
-      )}
-      { isAddCardPopupOpen && (
-        <Popup
-          contentsConfig={popupMap.form.newPlace}
-          formsMap={popupMap.form}
-          handlePopupControlAction={handlePopupControlAction}
-        />
-      )}
-      { selectedCard && (
-        <Popup
-          contentsConfig={popupMap.imageZoom}
-          card={{ selectedCard, setSelectedCard }}
-          handlePopupControlAction={handlePopupControlAction}
-        />
-      )}
+        {isEditProfilePopupOpen && (
+          <Popup
+            contentsConfig={popupMap.form.editProfile}
+            formsMap={popupMap.form}
+            handlePopupControlAction={handlePopupControlAction}
+          />
+        )}
+        {isEditAvatarPopupOpen && (
+          <Popup
+            contentsConfig={popupMap.form.changePhoto}
+            formsMap={popupMap.form}
+            handlePopupControlAction={handlePopupControlAction}
+          />
+        )}
+        {isAddCardPopupOpen && (
+          <Popup
+            contentsConfig={popupMap.form.newPlace}
+            formsMap={popupMap.form}
+            handlePopupControlAction={handlePopupControlAction}
+          />
+        )}
+        {selectedCard && (
+          <Popup
+            contentsConfig={popupMap.imageZoom}
+            card={selectedCard}
+            handlePopupControlAction={handlePopupControlAction}
+          />
+        )}
 
-    </div>
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 
