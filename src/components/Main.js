@@ -12,20 +12,7 @@ function Main(props) {
      imageZoom,
   } = popupMap;
 
-  // const [userName, setUserName] = useState();
-  // const [userDescription, setUserDescription] = useState();
-  // const [userAvatar, setUserAvatar] = useState();
   const [cards, setCards] = useState([]);
-
-  // useEffect(function () {
-  //   async function fetchUserData() {
-  //     const { name, about, avatar } = await api.getUserInfo();
-  //     setUserName(name);
-  //     setUserDescription(about);
-  //     setUserAvatar(avatar);
-  //   }
-  //   fetchUserData();
-  // }, []);
 
   useEffect(function () {
     async function fetchCards() {

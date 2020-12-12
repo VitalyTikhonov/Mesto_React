@@ -1,10 +1,16 @@
+import { useContext } from 'react';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
+
 function Card(props) {
+  const currentUser = useContext(CurrentUserContext);
   const {
-    cardData: { name, link },
-    // handleCardClick,
+    cardData: { name, link, owner },
     handlePopupControlAction,
     popupName,
   } = props;
+
+  const isOwn = currentUser ? owner === currentUser._id : false;
+  console.log('isOwn', isOwn);
 
   function handleImageClick() {
     const eventImitation = {
@@ -14,7 +20,6 @@ function Card(props) {
       },
     }
     handlePopupControlAction(eventImitation);
-    // handleCardClick(link);
   }
 
   return (
@@ -29,7 +34,7 @@ function Card(props) {
       <div className="place-card__description">
         <h3 className="place-card__name">{name}</h3>
         <div className="like">
-          <button className="like__icon" />
+          <button className="like__icon" disabled={!isOwn} />
           <span className="like__count" />
         </div>
       </div>
