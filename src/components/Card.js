@@ -4,13 +4,15 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 function Card(props) {
   const currentUser = useContext(CurrentUserContext);
   const {
-    cardData: { name, link, owner },
+    cardData,
+    cardData: { name, link, owner, likes },
     handlePopupControlAction,
     popupName,
+    onCardLike,
   } = props;
 
   const isOwn = currentUser ? owner === currentUser._id : false;
-  console.log('isOwn', isOwn);
+  const isLiked = currentUser ? likes.some((_id) => _id === currentUser._id) : false;
 
   function handleImageClick() {
     const eventImitation = {
@@ -22,6 +24,10 @@ function Card(props) {
     handlePopupControlAction(eventImitation);
   }
 
+  function handleLikeClick() {
+    onCardLike(cardData, !isLiked);
+  }
+
   return (
     <div className="place-card">
       <div
@@ -29,12 +35,15 @@ function Card(props) {
         style={{ backgroundImage: `url(${link})` }}
         onClick={handleImageClick}
       >
-        <button className="place-card__delete-icon" disabled />
+        <button className="place-card__delete-icon" disabled={!isOwn} />
       </div>
       <div className="place-card__description">
         <h3 className="place-card__name">{name}</h3>
         <div className="like">
-          <button className="like__icon" disabled={!isOwn} />
+          <button
+            className={`like__icon ${isLiked ? 'like__icon_liked' : ""}`}
+            onClick={handleLikeClick}
+          />
           <span className="like__count" />
         </div>
       </div>

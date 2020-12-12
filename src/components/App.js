@@ -19,8 +19,6 @@ function App() {
     async function fetchUserData() {
       const currentUserData = await api.getUserInfo();
       setCurrentUser(currentUserData);
-      // const { name, about, avatar } = await api.getUserInfo();
-      // setCurrentUser({ name, about, avatar });
     }
     fetchUserData();
   }, []);

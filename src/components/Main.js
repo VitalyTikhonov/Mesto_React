@@ -8,8 +8,8 @@ function Main(props) {
 
   const { popupMap, handlePopupControlAction } = props;
   const {
-     form: { editProfile, changePhoto, newPlace },
-     imageZoom,
+    form: { editProfile, changePhoto, newPlace },
+    imageZoom,
   } = popupMap;
 
   const [cards, setCards] = useState([]);
@@ -21,6 +21,16 @@ function Main(props) {
     }
     fetchCards();
   }, []);
+
+  async function handleCardLike(card, likeOrUnlike) {
+    try {
+      const newCard = await api.toggleCardLike(card._id, likeOrUnlike);
+      const newCards = cards.map((c) => c._id === card._id ? newCard : c);
+      setCards(newCards);
+    } catch (err) {
+      console.log(err);
+    };
+  }
 
   return (
     <main className="main">
@@ -42,6 +52,7 @@ function Main(props) {
             cardData={cardData}
             handlePopupControlAction={handlePopupControlAction}
             popupName={imageZoom.name}
+            onCardLike={handleCardLike}
           />;
         }
         )}

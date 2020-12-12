@@ -115,26 +115,11 @@ class Api {
       .then(res => this.primaryResponseHandler(res));
   }
 
-  likeCard(id) {
+  toggleCardLike(id, liking) {
     return fetch(
-      `${this.baseUrl}/cards/like/${id}`,
+      `${this.baseUrl}/cards/${id}/likes`,
       {
-        method: 'PUT',
-        headers: {
-          // authorization: this.authorization,
-          'Content-Type': this.content_type,
-        },
-        credentials: 'include',
-      }
-    )
-      .then(res => this.primaryResponseHandler(res));
-  }
-
-  unLikeCard(id) {
-    return fetch(
-      `${this.baseUrl}/cards/like/${id}`,
-      {
-        method: 'DELETE',
+        method: liking ? 'PUT' : 'DELETE',
         headers: {
           // authorization: this.authorization,
           'Content-Type': this.content_type,
