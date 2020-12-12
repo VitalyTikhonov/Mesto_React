@@ -1,9 +1,12 @@
-import { API_URL } from '../configs/config';
+import {
+  API_URL,
+  // YANDEX_TOKEN,
+} from '../configs/config';
 
 class Api {
   constructor() {
     this.baseUrl = API_URL;
-    this.authorization = '0b72fd76-9a90-456a-b6c4-44b360b3c5bd'; // headers
+    // this.authorization = YANDEX_TOKEN; // headers
     this.content_type = 'application/json'; // headers
   }
 
@@ -19,7 +22,7 @@ class Api {
       `${this.baseUrl}/users/me`,
       {
         method: 'GET',
-        headers: { 'Content-Type': this.content_type },
+        // headers: { 'Content-Type': this.content_type },
         // headers: {
         //     authorization: this.authorization,
         // },
@@ -71,10 +74,10 @@ class Api {
       `${this.baseUrl}/cards`,
       {
         method: 'GET',
-        headers: {
-          // authorization: this.authorization,
-          'Content-Type': this.content_type,
-        },
+        // headers: {
+        //   // authorization: this.authorization,
+        //   // 'Content-Type': this.content_type,
+        // },
         credentials: 'include',
       }
     )
@@ -105,10 +108,10 @@ class Api {
       `${this.baseUrl}/cards/${id}`,
       {
         method: 'DELETE',
-        headers: {
-          // authorization: this.authorization,
-          'Content-Type': this.content_type,
-        },
+        // headers: {
+        //   // authorization: this.authorization,
+        //   // 'Content-Type': this.content_type,
+        // },
         credentials: 'include',
       }
     )
@@ -120,10 +123,10 @@ class Api {
       `${this.baseUrl}/cards/${id}/likes`,
       {
         method: liking ? 'PUT' : 'DELETE',
-        headers: {
-          // authorization: this.authorization,
-          'Content-Type': this.content_type,
-        },
+        // headers: {
+        //   // authorization: this.authorization,
+        //   // 'Content-Type': this.content_type,
+        // },
         credentials: 'include',
       }
     )

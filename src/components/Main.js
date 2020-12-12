@@ -32,6 +32,16 @@ function Main(props) {
     };
   }
 
+  async function handleCardDelete(cardId) {
+    try {
+      const deletedCard = await api.deleteCard(cardId);
+      const newCards = cards.filter((c) => c._id !== deletedCard._id);
+      setCards(newCards);
+    } catch (err) {
+      console.log(err);
+    };
+  }
+
   return (
     <main className="main">
       <section className="profile root__section">
@@ -53,6 +63,7 @@ function Main(props) {
             handlePopupControlAction={handlePopupControlAction}
             popupName={imageZoom.name}
             onCardLike={handleCardLike}
+            onCardDelete={handleCardDelete}
           />;
         }
         )}

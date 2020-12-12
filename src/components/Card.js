@@ -5,10 +5,11 @@ function Card(props) {
   const currentUser = useContext(CurrentUserContext);
   const {
     cardData,
-    cardData: { name, link, owner, likes },
+    cardData: { _id, name, link, owner, likes },
     handlePopupControlAction,
     popupName,
     onCardLike,
+    onCardDelete,
   } = props;
 
   const isOwn = currentUser ? owner === currentUser._id : false;
@@ -28,6 +29,12 @@ function Card(props) {
     onCardLike(cardData, !isLiked);
   }
 
+  function handleDeleteClick() {
+    if (window.confirm("Удалить карточку?")) {
+      onCardDelete(_id);
+    }
+  }
+
   return (
     <div className="place-card">
       <div
@@ -35,7 +42,10 @@ function Card(props) {
         style={{ backgroundImage: `url(${link})` }}
         onClick={handleImageClick}
       >
-        <button className="place-card__delete-icon" disabled={!isOwn} />
+        <button
+          className="place-card__delete-icon"
+          onClick={handleDeleteClick}
+          disabled={!isOwn} />
       </div>
       <div className="place-card__description">
         <h3 className="place-card__name">{name}</h3>
