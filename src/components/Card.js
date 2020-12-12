@@ -44,7 +44,7 @@ function Card(props) {
             className={`like__icon ${isLiked ? 'like__icon_liked' : ""}`}
             onClick={handleLikeClick}
           />
-          <span className="like__count" />
+          <span className="like__count">{likes.length}</span>
         </div>
       </div>
     </div>
