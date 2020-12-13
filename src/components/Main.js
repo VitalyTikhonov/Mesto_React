@@ -4,7 +4,16 @@ import api from "../utils/Api";
 import Card from './Card';
 
 function Main(props) {
-  const currentUser = useContext(CurrentUserContext);
+  const {
+    about,
+    avatar,
+    // email,
+    name,
+    // _id,
+  } = useContext(CurrentUserContext);
+  // console.log('', currentUser);
+  // console.log('currentUser.name', currentUser.name);
+
 
   const { popupMap, handlePopupControlAction } = props;
   const {
@@ -46,10 +55,10 @@ function Main(props) {
     <main className="main">
       <section className="profile root__section">
         <div className="user-info">
-          <div className="user-info__photo" id={changePhoto.name + 'OpenElem'} onClick={handlePopupControlAction} style={{ backgroundImage: `url(${currentUser && currentUser.avatar})` }} />
+          <div className="user-info__photo" id={changePhoto.name + 'OpenElem'} onClick={handlePopupControlAction} style={{ backgroundImage: `url(${avatar})` }} />
           <div className="user-info__data">
-            <h1 className="user-info__name">{currentUser && currentUser.name}</h1>
-            <p className="user-info__about">{currentUser && currentUser.about}</p>
+            <h1 className="user-info__name">{name}</h1>
+            <p className="user-info__about">{about}</p>
             <button className="button user-info__button-edit-profile" id={editProfile.name + 'OpenElem'} onClick={handlePopupControlAction}>Редактировать</button>
           </div>
           <button className="button user-info__button" id={newPlace.name + 'OpenElem'} onClick={handlePopupControlAction}>+</button>

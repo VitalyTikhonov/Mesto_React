@@ -12,8 +12,8 @@ function Card(props) {
     onCardDelete,
   } = props;
 
-  const isOwn = currentUser ? owner === currentUser._id : false;
-  const isLiked = currentUser ? likes.some((_id) => _id === currentUser._id) : false;
+  const isOwn = owner === currentUser._id;
+  const isLiked = likes.some((_id) => _id === currentUser._id);
 
   function handleImageClick() {
     const eventImitation = {

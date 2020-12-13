@@ -13,7 +13,13 @@ function App() {
   const [isAddCardPopupOpen, setIsAddCardPopupOpen] = useState(false);
   const [popupMap] = useState(popupConfig);
   const [selectedCard, setSelectedCard] = useState(null);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState({
+    about: '',
+    avatar: '',
+    email: '',
+    name: '',
+    _id: '',
+  });
 
   useEffect(function () {
     async function fetchUserData() {
