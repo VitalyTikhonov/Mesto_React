@@ -14,19 +14,19 @@ function Popup(props) {
 
   useEffect(() => {
     const popup = document.getElementById(`${name}Popup`)
-    function handleEscape(event) {
-      if (event.key === 'Escape' || event.target === popup) {
+    function handleEscapeAndClickBeyond(event) {
+      if (event.key === 'Escape' || (event.type === 'click' && event.target === popup)) {
         const eventImitation = { target: { id: name + 'OpenElem' } }
         handlePopupControlAction(eventImitation);
       }
     }
 
-    document.addEventListener('keydown', handleEscape);
-    document.addEventListener('click', handleEscape);
+    document.addEventListener('keydown', handleEscapeAndClickBeyond);
+    document.addEventListener('click', handleEscapeAndClickBeyond);
 
     return () => {
-      document.removeEventListener('keydown', handleEscape);
-      document.removeEventListener('click', handleEscape);
+      document.removeEventListener('keydown', handleEscapeAndClickBeyond);
+      document.removeEventListener('click', handleEscapeAndClickBeyond);
     };
   });
 

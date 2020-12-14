@@ -48,6 +48,7 @@ function App() {
         break;
       default:
     }
+    document.activeElement.blur(); // Чтобы попап не закрывался по Enter
   }
 
   return (
