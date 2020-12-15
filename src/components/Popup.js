@@ -8,6 +8,7 @@ function Popup(props) {
     contentsConfig,
     contentsConfig: { name },
     handlePopupControlAction,
+    updateUserData,
     formsMap,
     card,
   } = props;
@@ -40,7 +41,7 @@ function Popup(props) {
           id={name + 'OpenElem'}
           onClick={handlePopupControlAction}
         />
-        {formsMap && <PopupForm formsMap={formsMap} contentsConfig={contentsConfig} />}
+        {formsMap && <PopupForm formsMap={formsMap} contentsConfig={contentsConfig} updateUserData={updateUserData} />}
         {card && <PopupImageView card={card} />}
       </div>
     </div>

@@ -21,6 +21,10 @@ function App() {
     _id: '',
   });
 
+  function updateUserData() {
+
+  }
+
   useEffect(function () {
     async function fetchUserData() {
       const currentUserData = await api.getUserInfo();
@@ -66,6 +70,7 @@ function App() {
             contentsConfig={popupMap.form.editProfile}
             formsMap={popupMap.form}
             handlePopupControlAction={handlePopupControlAction}
+            updateUserData={updateUserData}
           />
         )}
         {isEditAvatarPopupOpen && (
@@ -73,6 +78,7 @@ function App() {
             contentsConfig={popupMap.form.changePhoto}
             formsMap={popupMap.form}
             handlePopupControlAction={handlePopupControlAction}
+            updateUserData={updateUserData}
           />
         )}
         {isAddCardPopupOpen && (

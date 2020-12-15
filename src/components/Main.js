@@ -11,9 +11,6 @@ function Main(props) {
     name,
     // _id,
   } = useContext(CurrentUserContext);
-  // console.log('', currentUser);
-  // console.log('currentUser.name', currentUser.name);
-
 
   const { popupMap, handlePopupControlAction } = props;
   const {
