@@ -32,7 +32,7 @@ class Api {
       .then(res => this.primaryResponseHandler(res));
   }
 
-  saveProfile(name, about) {
+  saveProfile({ name, about }) {
     return fetch(
       `${this.baseUrl}/users/me`,
       {
@@ -51,7 +51,7 @@ class Api {
       .then(res => this.primaryResponseHandler(res));
   }
 
-  changePhoto(avatar) {
+  changePhoto({ avatar }) {
     return fetch(
       `${this.baseUrl}/users/me/avatar`,
       {
@@ -84,7 +84,7 @@ class Api {
       .then(res => this.primaryResponseHandler(res));
   }
 
-  addCard(name, link) {
+  addCard({ name, link }) {
     return fetch(
       `${this.baseUrl}/cards`,
       {

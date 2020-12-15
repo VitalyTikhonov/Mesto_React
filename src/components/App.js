@@ -21,8 +21,34 @@ function App() {
     _id: '',
   });
 
-  function updateUserData() {
+  async function updateUserData(userInputObj) {
+    try {
+      const serverResponse = await api.saveProfile(userInputObj);
+      setCurrentUser(serverResponse);
+      setIsEditProfilePopupOpen(false);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
+  async function updateUserAvatar(userInputObj) {
+    // try {
+    //   const serverResponse = await api.changePhoto(userInputObj);
+    //   setCurrentUser({ ...currentUser, serverResponse });
+        setIsEditAvatarPopupOpen(false);
+    // } catch (err) {
+    //   console.log(err, '\n', err.message);
+    // }
+  }
+
+  async function saveNewPlaceData(userInputObj) {
+    // try {
+    //   const serverResponse = await api.addCard(userInputObj);
+    //   // setCurrentUser({ ...currentUser, serverResponse});
+        setIsAddCardPopupOpen(false);
+    // } catch (err) {
+    // console.log(err, '\n', err.message);
+    // }
   }
 
   useEffect(function () {
@@ -70,7 +96,7 @@ function App() {
             contentsConfig={popupMap.form.editProfile}
             formsMap={popupMap.form}
             handlePopupControlAction={handlePopupControlAction}
-            updateUserData={updateUserData}
+            updateData={{ updateUserData, updateUserAvatar, saveNewPlaceData }}
           />
         )}
         {isEditAvatarPopupOpen && (
@@ -78,7 +104,7 @@ function App() {
             contentsConfig={popupMap.form.changePhoto}
             formsMap={popupMap.form}
             handlePopupControlAction={handlePopupControlAction}
-            updateUserData={updateUserData}
+            updateData={{ updateUserData, updateUserAvatar, saveNewPlaceData }}
           />
         )}
         {isAddCardPopupOpen && (
