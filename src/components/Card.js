@@ -29,7 +29,8 @@ function Card(props) {
     onCardLike(cardData, !isLiked);
   }
 
-  function handleDeleteClick() {
+  function handleDeleteClick(event) {
+    event.stopPropagation();
     if (window.confirm("Удалить карточку?")) {
       onCardDelete(_id);
     }

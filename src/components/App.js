@@ -6,6 +6,7 @@ import Main from './Main';
 import Popup from './Popup';
 // import Footer from './Footer';
 import { popupConfig } from '../configs/constants';
+// import '../utils/onetimeOperations';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -14,12 +15,13 @@ function App() {
   const [popupMap] = useState(popupConfig);
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState({
-    about: '',
+    userDescription: '',
     avatar: '',
     email: '',
-    name: '',
+    userName: '',
     _id: '',
   });
+  const [cards, setCards] = useState([]);
 
   async function updateUserData(userInputObj) {
     try {
@@ -28,28 +30,30 @@ function App() {
       setIsEditProfilePopupOpen(false);
     } catch (err) {
       const errResJson = await err.json();
-      console.log('errResJson', errResJson);
+      console.log(errResJson);
     }
   }
 
   async function updateUserAvatar(userInputObj) {
-    // try {
-    //   const serverResponse = await api.changePhoto(userInputObj);
-    //   setCurrentUser({ ...currentUser, serverResponse });
-        setIsEditAvatarPopupOpen(false);
-    // } catch (err) {
-    //   console.log(err, '\n', err.message);
-    // }
+    try {
+      const serverResponse = await api.changePhoto(userInputObj);
+      setCurrentUser(serverResponse);
+      setIsEditAvatarPopupOpen(false);
+    } catch (err) {
+      const errResJson = await err.json();
+      console.log(errResJson);
+    }
   }
 
   async function saveNewPlaceData(userInputObj) {
-    // try {
-    //   const serverResponse = await api.addCard(userInputObj);
-    //   // setCurrentUser({ ...currentUser, serverResponse});
-        setIsAddCardPopupOpen(false);
-    // } catch (err) {
-    // console.log(err, '\n', err.message);
-    // }
+    try {
+      const serverResponse = await api.addCard(userInputObj);
+      setCards([...cards, serverResponse]);
+      setIsAddCardPopupOpen(false);
+    } catch (err) {
+      const errResJson = await err.json();
+      console.log(errResJson);
+    }
   }
 
   useEffect(function () {
@@ -59,6 +63,34 @@ function App() {
     }
     fetchUserData();
   }, []);
+
+  useEffect(function () {
+    async function fetchCards() {
+      const cards = await api.getCards();
+      setCards(cards);
+    }
+    fetchCards();
+  }, []);
+
+  async function handleCardLike(card, likeOrUnlike) {
+    try {
+      const newCard = await api.toggleCardLike(card._id, likeOrUnlike);
+      const newCards = cards.map((c) => c._id === card._id ? newCard : c);
+      setCards(newCards);
+    } catch (err) {
+      console.log(err);
+    };
+  }
+
+  async function handleCardDelete(cardId) {
+    try {
+      const deletedCard = await api.deleteCard(cardId);
+      const newCards = cards.filter((c) => c._id !== deletedCard._id);
+      setCards(newCards);
+    } catch (err) {
+      console.log(err);
+    };
+  }
 
   function handlePopupControlAction(event) {
     switch (event.target.id) {
@@ -90,6 +122,9 @@ function App() {
         <Main
           popupMap={popupMap}
           handlePopupControlAction={handlePopupControlAction}
+          cards={cards}
+          handleCardLike={handleCardLike}
+          handleCardDelete={handleCardDelete}
         />
 
         {isEditProfilePopupOpen && (
@@ -97,7 +132,7 @@ function App() {
             contentsConfig={popupMap.form.editProfile}
             formsMap={popupMap.form}
             handlePopupControlAction={handlePopupControlAction}
-            updateData={{ updateUserData }}
+            updateData={updateUserData}
           />
         )}
         {isEditAvatarPopupOpen && (
@@ -105,7 +140,7 @@ function App() {
             contentsConfig={popupMap.form.changePhoto}
             formsMap={popupMap.form}
             handlePopupControlAction={handlePopupControlAction}
-            updateData={{ updateUserAvatar }}
+            updateData={updateUserAvatar}
           />
         )}
         {isAddCardPopupOpen && (
@@ -113,7 +148,7 @@ function App() {
             contentsConfig={popupMap.form.newPlace}
             formsMap={popupMap.form}
             handlePopupControlAction={handlePopupControlAction}
-            updateData={{ saveNewPlaceData }}
+            updateData={saveNewPlaceData}
           />
         )}
         {selectedCard && (
