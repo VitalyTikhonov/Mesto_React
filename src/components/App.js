@@ -132,7 +132,7 @@ function App() {
             contentsConfig={popupMap.form.editProfile}
             formsMap={popupMap.form}
             handlePopupControlAction={handlePopupControlAction}
-            updateData={{ updateUserData }}
+            updateData={updateUserData}
           />
         )}
         {isEditAvatarPopupOpen && (
@@ -140,7 +140,7 @@ function App() {
             contentsConfig={popupMap.form.changePhoto}
             formsMap={popupMap.form}
             handlePopupControlAction={handlePopupControlAction}
-            updateData={{ updateUserAvatar }}
+            updateData={updateUserAvatar}
           />
         )}
         {isAddCardPopupOpen && (
@@ -148,7 +148,7 @@ function App() {
             contentsConfig={popupMap.form.newPlace}
             formsMap={popupMap.form}
             handlePopupControlAction={handlePopupControlAction}
-            updateData={{ saveNewPlaceData }}
+            updateData={saveNewPlaceData}
           />
         )}
         {selectedCard && (

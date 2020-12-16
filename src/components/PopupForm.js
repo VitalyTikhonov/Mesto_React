@@ -8,7 +8,7 @@ function PopupForm(props) {
   const {
     formsMap,
     contentsConfig: { name: popupName, title },
-    updateData: { updateUserData, updateUserAvatar, saveNewPlaceData },
+    updateData,
   } = props; // popupName введено вместо name для исключения конфликта с CurrentUserContext
 
   const { userDescription, avatar, userName } = useContext(CurrentUserContext);
@@ -39,13 +39,13 @@ function PopupForm(props) {
 
     switch (name) {
       case formsMap.editProfile.name:
-        updateUserData(editProfileValues);
+        updateData(editProfileValues);
         break;
       case formsMap.changePhoto.name:
-        updateUserAvatar(changePhotoValues);
+        updateData(changePhotoValues);
         break;
       case formsMap.newPlace.name:
-        saveNewPlaceData(newPlaceValues);
+        updateData(newPlaceValues);
         break;
       default:
     }
