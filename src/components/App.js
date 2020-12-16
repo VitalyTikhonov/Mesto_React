@@ -27,7 +27,8 @@ function App() {
       setCurrentUser(serverResponse);
       setIsEditProfilePopupOpen(false);
     } catch (err) {
-      console.log(err);
+      const errResJson = await err.json();
+      console.log('errResJson', errResJson);
     }
   }
 
@@ -96,7 +97,7 @@ function App() {
             contentsConfig={popupMap.form.editProfile}
             formsMap={popupMap.form}
             handlePopupControlAction={handlePopupControlAction}
-            updateData={{ updateUserData, updateUserAvatar, saveNewPlaceData }}
+            updateData={{ updateUserData }}
           />
         )}
         {isEditAvatarPopupOpen && (
@@ -104,7 +105,7 @@ function App() {
             contentsConfig={popupMap.form.changePhoto}
             formsMap={popupMap.form}
             handlePopupControlAction={handlePopupControlAction}
-            updateData={{ updateUserData, updateUserAvatar, saveNewPlaceData }}
+            updateData={{ updateUserAvatar }}
           />
         )}
         {isAddCardPopupOpen && (
@@ -112,6 +113,7 @@ function App() {
             contentsConfig={popupMap.form.newPlace}
             formsMap={popupMap.form}
             handlePopupControlAction={handlePopupControlAction}
+            updateData={{ saveNewPlaceData }}
           />
         )}
         {selectedCard && (
