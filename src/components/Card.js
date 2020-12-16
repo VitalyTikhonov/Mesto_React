@@ -23,7 +23,6 @@ function Card(props) {
       },
     }
     handlePopupControlAction(eventImitation);
-    console.log('handleImageClick');
   }
 
   function handleLikeClick() {

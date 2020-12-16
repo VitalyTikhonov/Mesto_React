@@ -30,7 +30,7 @@ function App() {
       setIsEditProfilePopupOpen(false);
     } catch (err) {
       const errResJson = await err.json();
-      console.log('errResJson', errResJson);
+      console.log(errResJson);
     }
   }
 
@@ -41,7 +41,7 @@ function App() {
       setIsEditAvatarPopupOpen(false);
     } catch (err) {
       const errResJson = await err.json();
-      console.log('errResJson', errResJson);
+      console.log(errResJson);
     }
   }
 
@@ -52,7 +52,7 @@ function App() {
       setIsAddCardPopupOpen(false);
     } catch (err) {
       const errResJson = await err.json();
-      console.log('errResJson', errResJson);
+      console.log(errResJson);
     }
   }
 
