@@ -1,5 +1,8 @@
 import { useState, useEffect, useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import EditProfileForm from './EditProfileForm';
+import ChangePhotoForm from './ChangePhotoForm';
+import NewPlaceForm from './NewPlaceForm';
 
 function PopupForm(props) {
   const {
@@ -10,45 +13,65 @@ function PopupForm(props) {
 
   const { about, avatar, name } = useContext(CurrentUserContext);
 
-  const [userName, setUserName] = useState('');
-  const [userAbout, setUserAbout] = useState('');
-  const [userAvatar, setAvatar] = useState('');
-  const [placeName, setPlaceName] = useState('');
-  const [placeImagelink, setPlaceImagelink] = useState('');
+  // const [userName, setUserName] = useState('');
+  // const [userAbout, setUserAbout] = useState('');
+  // const [userAvatar, setAvatar] = useState('');
+  // const [placeName, setPlaceName] = useState('');
+  // const [placeImagelink, setPlaceImagelink] = useState('');
+
+  // useEffect(() => {
+  //   setUserName(name);
+  //   setUserAbout(about);
+  //   setAvatar(avatar);
+  // }, [name, about, avatar]);
+
+  const [editProfileValues, setEditProfileValues] = useState({
+    userName: '',
+    userAbout: '',
+  });
+  const [changePhotoValues, setChangePhotoValues] = useState({
+    avatar: '',
+  });
+  const [newPlaceValues, setNewPlaceValues] = useState({
+    placeName: '',
+    placeImagelink: '',
+  });
 
   useEffect(() => {
-    setUserName(name);
-    setUserAbout(about);
-    setAvatar(avatar);
+    setEditProfileValues({
+      userName: name,
+      userAbout: about,
+    });
+    setChangePhotoValues({ avatar });
   }, [name, about, avatar]);
 
-  function handleInputChange(event) {
-    const { name, value } = event.target;
+  // function handleInputChange(event) {
+  //   const { name, value } = event.target;
 
-    switch (name) {
-      case 'userName':
-        setUserName(value);
-        break;
-      case 'userAbout':
-        setUserAbout(value);
-        break;
-      case 'userAvatar':
-        setAvatar(value);
-        break;
-      case 'placeName':
-        setPlaceName(value);
-        break;
-      case 'placeImagelink':
-        setPlaceImagelink(value);
-        break;
-      default:
-    }
-    // console.log(
-    //   'editProfileValues', editProfileValues, '\n',
-    //   'changePhotoValues', changePhotoValues, '\n',
-    //   'newPlaceValues', newPlaceValues
-    // ); // Почему этот консоль-лог выдает неактуальное состояние объекта?
-  }
+  //   switch (name) {
+  //     case 'userName':
+  //       setUserName(value);
+  //       break;
+  //     case 'userAbout':
+  //       setUserAbout(value);
+  //       break;
+  //     case 'userAvatar':
+  //       setAvatar(value);
+  //       break;
+  //     case 'placeName':
+  //       setPlaceName(value);
+  //       break;
+  //     case 'placeImagelink':
+  //       setPlaceImagelink(value);
+  //       break;
+  //     default:
+  //   }
+  //   // console.log(
+  //   //   'editProfileValues', editProfileValues, '\n',
+  //   //   'changePhotoValues', changePhotoValues, '\n',
+  //   //   'newPlaceValues', newPlaceValues
+  //   // ); // Почему этот консоль-лог выдает неактуальное состояние объекта?
+  // }
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -73,24 +96,11 @@ function PopupForm(props) {
       <h3 className="popup__title">{title}</h3>
       <form className="popup__form" name={popupName} onSubmit={handleSubmit} noValidate>
         {popupName === formsMap.editProfile.name &&
-          (<>
-            <input type="text" name="userName" value={userName} id="user-name" className="popup__input" onChange={handleInputChange} placeholder="Имя" required minLength={2} maxLength={30} />
-            <span className="popup__error" id="user-name-error" />
-            <input type="text" name="userAbout" value={userAbout} id="user-about" className="popup__input" onChange={handleInputChange} placeholder="О себе" required minLength={2} maxLength={30} />
-            <span className="popup__error" id="user-about-error" />
-          </>)}
+          <EditProfileForm values={editProfileValues} />}
         {popupName === formsMap.changePhoto.name &&
-          (<>
-            <input type="url" name="userAvatar" value={userAvatar} id="avatar" className="popup__input" onChange={handleInputChange} placeholder="Ссылка на аватар" required />
-            <span className="popup__error" id="avatar-error" />
-          </>)}
+          <ChangePhotoForm values={changePhotoValues} />}
         {popupName === formsMap.newPlace.name &&
-          (<>
-            <input type="text" name="placeName" value={placeName} id="place-name" className="popup__input" onChange={handleInputChange} placeholder="Название" required minLength={2} maxLength={30} />
-            <span className="popup__error" id="place-name-error" />
-            <input type="url" name="placeImagelink" value={placeImagelink} id="place-link" className="popup__input" onChange={handleInputChange} placeholder="Ссылка на картинку" required />
-            <span className="popup__error" id="place-link-error" />
-          </>)}
+          <NewPlaceForm values={newPlaceValues} />}
         <button type="submit" className="button popup__button" >Сохранить</button> {/* disabled */}
       </form>
     </div>
