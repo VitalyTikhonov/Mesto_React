@@ -7,7 +7,6 @@ import NewPlaceForm from './NewPlaceForm';
 function PopupForm(props) {
   const {
     formsMap,
-    contentsConfig,
     contentsConfig: { name: popupName, title },
     updateData,
   } = props; // popupName введено вместо name для исключения конфликта с CurrentUserContext
@@ -34,30 +33,36 @@ function PopupForm(props) {
     setChangePhotoValues({ avatar });
   }, [userName, userDescription, avatar]);
 
+  function handleSubmit(event) {
+    event.preventDefault();
+    const { name } = event.target;
+
+    switch (name) {
+      case formsMap.editProfile.name:
+        updateData(editProfileValues);
+        break;
+      case formsMap.changePhoto.name:
+        updateData(changePhotoValues);
+        break;
+      case formsMap.newPlace.name:
+        updateData(newPlaceValues);
+        break;
+      default:
+    }
+  }
+
   return (
     <div className="popup__content popup__content_type_form">
       <h3 className="popup__title">{title}</h3>
-      {popupName === formsMap.editProfile.name &&
-        <EditProfileForm
-          values={editProfileValues}
-          updateValuesInState={setEditProfileValues}
-          updateData={updateData}
-          contentsConfig={contentsConfig}
-        />}
-      {popupName === formsMap.changePhoto.name &&
-        <ChangePhotoForm
-          values={changePhotoValues}
-          updateValuesInState={setChangePhotoValues}
-          updateData={updateData}
-          contentsConfig={contentsConfig}
-        />}
-      {popupName === formsMap.newPlace.name &&
-        <NewPlaceForm
-          values={newPlaceValues}
-          updateValuesInState={setNewPlaceValues}
-          updateData={updateData}
-          contentsConfig={contentsConfig}
-        />}
+      <form className="popup__form" name={popupName} onSubmit={handleSubmit} noValidate>
+        {popupName === formsMap.editProfile.name &&
+          <EditProfileForm values={editProfileValues} updateValuesInState={setEditProfileValues} />}
+        {popupName === formsMap.changePhoto.name &&
+          <ChangePhotoForm values={changePhotoValues} updateValuesInState={setChangePhotoValues} />}
+        {popupName === formsMap.newPlace.name &&
+          <NewPlaceForm values={newPlaceValues} updateValuesInState={setNewPlaceValues} />}
+        <button type="submit" className="button popup__button" >Сохранить</button> {/* disabled */}
+      </form>
     </div>
   )
 }
