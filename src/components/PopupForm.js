@@ -11,23 +11,11 @@ function PopupForm(props) {
     updateData: { updateUserData, updateUserAvatar, saveNewPlaceData },
   } = props; // popupName введено вместо name для исключения конфликта с CurrentUserContext
 
-  const { about, avatar, name } = useContext(CurrentUserContext);
-
-  // const [userName, setUserName] = useState('');
-  // const [userAbout, setUserAbout] = useState('');
-  // const [userAvatar, setAvatar] = useState('');
-  // const [placeName, setPlaceName] = useState('');
-  // const [placeImagelink, setPlaceImagelink] = useState('');
-
-  // useEffect(() => {
-  //   setUserName(name);
-  //   setUserAbout(about);
-  //   setAvatar(avatar);
-  // }, [name, about, avatar]);
+  const { userDescription, avatar, userName } = useContext(CurrentUserContext);
 
   const [editProfileValues, setEditProfileValues] = useState({
     userName: '',
-    userAbout: '',
+    userDescription: '',
   });
   const [changePhotoValues, setChangePhotoValues] = useState({
     avatar: '',
@@ -39,39 +27,11 @@ function PopupForm(props) {
 
   useEffect(() => {
     setEditProfileValues({
-      userName: name,
-      userAbout: about,
+      userName,
+      userDescription,
     });
     setChangePhotoValues({ avatar });
-  }, [name, about, avatar]);
-
-  // function handleInputChange(event) {
-  //   const { name, value } = event.target;
-
-  //   switch (name) {
-  //     case 'userName':
-  //       setUserName(value);
-  //       break;
-  //     case 'userAbout':
-  //       setUserAbout(value);
-  //       break;
-  //     case 'userAvatar':
-  //       setAvatar(value);
-  //       break;
-  //     case 'placeName':
-  //       setPlaceName(value);
-  //       break;
-  //     case 'placeImagelink':
-  //       setPlaceImagelink(value);
-  //       break;
-  //     default:
-  //   }
-  //   // console.log(
-  //   //   'editProfileValues', editProfileValues, '\n',
-  //   //   'changePhotoValues', changePhotoValues, '\n',
-  //   //   'newPlaceValues', newPlaceValues
-  //   // ); // Почему этот консоль-лог выдает неактуальное состояние объекта?
-  // }
+  }, [userName, userDescription, avatar]);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -79,13 +39,13 @@ function PopupForm(props) {
 
     switch (name) {
       case formsMap.editProfile.name:
-        updateUserData({ name: userName, about: userAbout });
+        updateUserData(editProfileValues);
         break;
       case formsMap.changePhoto.name:
-        updateUserAvatar({ avatar: userAvatar });
+        updateUserAvatar(changePhotoValues);
         break;
       case formsMap.newPlace.name:
-        saveNewPlaceData({ name: placeName, link: placeImagelink });
+        saveNewPlaceData(newPlaceValues);
         break;
       default:
     }
@@ -96,11 +56,11 @@ function PopupForm(props) {
       <h3 className="popup__title">{title}</h3>
       <form className="popup__form" name={popupName} onSubmit={handleSubmit} noValidate>
         {popupName === formsMap.editProfile.name &&
-          <EditProfileForm values={editProfileValues} />}
+          <EditProfileForm values={editProfileValues} updateValuesInState={setEditProfileValues} />}
         {popupName === formsMap.changePhoto.name &&
-          <ChangePhotoForm values={changePhotoValues} />}
+          <ChangePhotoForm values={changePhotoValues} updateValuesInState={setChangePhotoValues} />}
         {popupName === formsMap.newPlace.name &&
-          <NewPlaceForm values={newPlaceValues} />}
+          <NewPlaceForm values={newPlaceValues} updateValuesInState={setNewPlaceValues} />}
         <button type="submit" className="button popup__button" >Сохранить</button> {/* disabled */}
       </form>
     </div>

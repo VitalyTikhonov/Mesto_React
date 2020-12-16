@@ -32,7 +32,7 @@ class Api {
       .then(res => this.primaryResponseHandler(res));
   }
 
-  saveProfile({ name, about }) {
+  saveProfile({ userName, userDescription }) {
     return fetch(
       `${this.baseUrl}/users/me`,
       {
@@ -43,8 +43,8 @@ class Api {
         },
         credentials: 'include',
         body: JSON.stringify({
-          name,
-          about,
+          userName,
+          userDescription,
         })
       }
     )
@@ -84,7 +84,7 @@ class Api {
       .then(res => this.primaryResponseHandler(res));
   }
 
-  addCard({ name, link }) {
+  addCard({ placeName, placeImagelink }) {
     return fetch(
       `${this.baseUrl}/cards`,
       {
@@ -95,8 +95,8 @@ class Api {
         },
         credentials: 'include',
         body: JSON.stringify({
-          name,
-          link,
+          name: placeName,
+          link: placeImagelink,
         })
       }
     )

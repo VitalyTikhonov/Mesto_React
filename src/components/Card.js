@@ -23,13 +23,15 @@ function Card(props) {
       },
     }
     handlePopupControlAction(eventImitation);
+    console.log('handleImageClick');
   }
 
   function handleLikeClick() {
     onCardLike(cardData, !isLiked);
   }
 
-  function handleDeleteClick() {
+  function handleDeleteClick(event) {
+    event.stopPropagation();
     if (window.confirm("Удалить карточку?")) {
       onCardDelete(_id);
     }
