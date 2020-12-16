@@ -5,6 +5,9 @@ import Header from './Header';
 import Main from './Main';
 import Popup from './Popup';
 // import Footer from './Footer';
+import EditProfileInputSet from './EditProfileInputSet';
+import ChangePhotoInputSet from './ChangePhotoInputSet';
+import NewPlaceInputSet from './NewPlaceInputSet';
 import { popupConfig } from '../configs/constants';
 // import '../utils/onetimeOperations';
 
@@ -22,6 +25,18 @@ function App() {
     _id: '',
   });
   const [cards, setCards] = useState([]);
+
+  const [editProfileValues, setEditProfileValues] = useState({
+    userName: '',
+    userDescription: '',
+  });
+  const [changePhotoValues, setChangePhotoValues] = useState({
+    avatar: '',
+  });
+  const [newPlaceValues, setNewPlaceValues] = useState({
+    placeName: '',
+    placeImagelink: '',
+  });
 
   async function updateUserData(userInputObj) {
     try {
@@ -92,6 +107,7 @@ function App() {
     };
   }
 
+  /* просто прокидывать сами стейт-сеттеры? */
   function handlePopupControlAction(event) {
     switch (event.target.id) {
       case `${popupMap.form.editProfile.name}OpenElem`:
@@ -130,7 +146,11 @@ function App() {
         {isEditProfilePopupOpen && (
           <Popup
             contentsConfig={popupMap.form.editProfile}
-            formsMap={popupMap.form}
+            InputSet={EditProfileInputSet}
+            inputState={{
+              values: editProfileValues,
+              updater: setEditProfileValues,
+            }}
             handlePopupControlAction={handlePopupControlAction}
             updateData={updateUserData}
           />
@@ -138,7 +158,11 @@ function App() {
         {isEditAvatarPopupOpen && (
           <Popup
             contentsConfig={popupMap.form.changePhoto}
-            formsMap={popupMap.form}
+            InputSet={ChangePhotoInputSet}
+            inputState={{
+              values: changePhotoValues,
+              updater: setChangePhotoValues,
+            }}
             handlePopupControlAction={handlePopupControlAction}
             updateData={updateUserAvatar}
           />
@@ -146,7 +170,11 @@ function App() {
         {isAddCardPopupOpen && (
           <Popup
             contentsConfig={popupMap.form.newPlace}
-            formsMap={popupMap.form}
+            InputSet={NewPlaceInputSet}
+            inputState={{
+              values: newPlaceValues,
+              updater: setNewPlaceValues,
+            }}
             handlePopupControlAction={handlePopupControlAction}
             updateData={saveNewPlaceData}
           />
