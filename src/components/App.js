@@ -8,24 +8,39 @@ import Popup from './Popup';
 import EditProfileInputSet from './EditProfileInputSet';
 import ChangePhotoInputSet from './ChangePhotoInputSet';
 import NewPlaceInputSet from './NewPlaceInputSet';
+import SignupInputSet from './SignupInputSet';
+import LoginInputSet from './LoginInputSet';
 import { popupConfig } from '../configs/constants';
 // import '../utils/onetimeOperations';
 
 function App() {
+  const [isSignupPopupOpen, setSignupPopupOpen] = useState(false);
+  const [isLoginPopupOpen, setLoginPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isAddCardPopupOpen, setIsAddCardPopupOpen] = useState(false);
   const [popupMap] = useState(popupConfig);
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState({
+    userName: '',
     userDescription: '',
     avatar: '',
     email: '',
-    userName: '',
     _id: '',
   });
   const [cards, setCards] = useState([]);
 
+  const [signupValues, setSignupValues] = useState({
+    userName: '',
+    userDescription: '',
+    avatar: '',
+    password: '',
+    email: '',
+  });
+  const [loginValues, setLoginValues] = useState({
+    email: '',
+    password: '',
+  });
   const [editProfileValues, setEditProfileValues] = useState({
     userName: '',
     userDescription: '',
@@ -37,6 +52,29 @@ function App() {
     placeName: '',
     placeImagelink: '',
   });
+
+  async function signup(userInputObj) {
+    try {
+      await api.signup(userInputObj);
+      // const serverResponse = await api.signup(userInputObj);
+      // setCurrentUser(serverResponse);
+      setSignupPopupOpen(false);
+    } catch (err) {
+      const errResJson = await err.json();
+      console.log(errResJson);
+    }
+  }
+
+  async function login(userInputObj) {
+    try {
+      const serverResponse = await api.login(userInputObj);
+      setCurrentUser(serverResponse);
+      setLoginPopupOpen(false);
+    } catch (err) {
+      const errResJson = await err.json();
+      console.log(errResJson);
+    }
+  }
 
   async function updateUserData(userInputObj) {
     try {
@@ -110,6 +148,12 @@ function App() {
   /* просто прокидывать сами стейт-сеттеры? */
   function handlePopupControlAction(event) {
     switch (event.target.id) {
+      case `${popupMap.form.signup.name}OpenElem`:
+        setSignupPopupOpen(!isSignupPopupOpen);
+        break;
+      case `${popupMap.form.login.name}OpenElem`:
+        setLoginPopupOpen(!isLoginPopupOpen);
+        break;
       case `${popupMap.form.editProfile.name}OpenElem`:
         setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
         break;
@@ -133,7 +177,10 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="root">
-        <Header />
+        <Header
+          popupMap={popupMap}
+          handlePopupControlAction={handlePopupControlAction}
+        />
 
         <Main
           popupMap={popupMap}
@@ -143,6 +190,30 @@ function App() {
           handleCardDelete={handleCardDelete}
         />
 
+        {isSignupPopupOpen && (
+          <Popup
+            contentsConfig={popupMap.form.signup}
+            InputSet={SignupInputSet}
+            inputState={{
+              values: signupValues,
+              updater: setSignupValues,
+            }}
+            handlePopupControlAction={handlePopupControlAction}
+            updateData={signup}
+          />
+        )}
+        {isLoginPopupOpen && (
+          <Popup
+            contentsConfig={popupMap.form.login}
+            InputSet={LoginInputSet}
+            inputState={{
+              values: loginValues,
+              updater: setLoginValues,
+            }}
+            handlePopupControlAction={handlePopupControlAction}
+            updateData={login}
+          />
+        )}
         {isEditProfilePopupOpen && (
           <Popup
             contentsConfig={popupMap.form.editProfile}

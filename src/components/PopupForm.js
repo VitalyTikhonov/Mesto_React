@@ -26,6 +26,14 @@ function PopupForm(props) {
       <form className="popup__form" name={popupName} onSubmit={handleSubmit} noValidate>
         <InputSet handleInputChange={handleInputChange} inputState={inputState} />
         <button type="submit" className="button popup__button" >Сохранить</button> {/* disabled */}
+        {
+          popupName === "login"
+          && (<p className="popup__prompt">или <span className="popup__prompt-link">зарегистрироваться</span></p>)
+        }
+        {
+          popupName === "signup"
+          && (<p className="popup__prompt">или <span className="popup__prompt-link">войти</span></p>)
+        }
       </form>
     </div>
   )

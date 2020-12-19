@@ -1,5 +1,13 @@
 export const popupConfig = {
   form: {
+    signup: {
+      name: 'signup',
+      title: 'Зарегистрироваться',
+    },
+    login: {
+      name: 'login',
+      title: 'Войти',
+    },
     editProfile: {
       name: 'editProfile',
       title: 'Редактировать профиль',

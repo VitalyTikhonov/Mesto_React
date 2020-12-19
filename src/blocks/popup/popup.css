@@ -7,6 +7,8 @@
 @import url(./__input/popup__input.css);
 @import url(./__button/popup__button.css);
 @import url(./__error/popup__error.css);
+@import url(./__prompt/popup__prompt.css);
+@import url(./__prompt-link/popup__prompt-link.css);
 @import url(./_is-open/popup_is-open.css);
 @import url(./_type/popup_type_edit-profile.css);
 @import url(./_type/popup_type_image-view-card.css);

@@ -32,6 +32,53 @@ class Api {
       .then(res => this.primaryResponseHandler(res));
   }
 
+  signup({
+    userName,
+    userDescription,
+    avatar,
+    password,
+    email,
+  }) {
+    return fetch(
+      `${this.baseUrl}/signup`,
+      {
+        method: 'POST',
+        headers: {
+          // authorization: this.authorization,
+          'Content-Type': this.content_type,
+        },
+        // credentials: 'include',
+        body: JSON.stringify({
+          userName,
+          userDescription,
+          avatar,
+          password,
+          email,
+        })
+      }
+    )
+      .then(res => this.primaryResponseHandler(res));
+  }
+
+  login({ email, password }) {
+    return fetch(
+      `${this.baseUrl}/signin`,
+      {
+        method: 'POST',
+        headers: {
+          // authorization: this.authorization,
+          'Content-Type': this.content_type,
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      },
+    )
+      .then(res => this.primaryResponseHandler(res));
+  }
+
   saveProfile({ userName, userDescription }) {
     return fetch(
       `${this.baseUrl}/users/me`,

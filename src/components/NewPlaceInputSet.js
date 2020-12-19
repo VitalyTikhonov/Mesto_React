@@ -1,4 +1,4 @@
-function NewPlaceForm(props) {
+function NewPlaceInputSet(props) {
   const {
     handleInputChange,
     inputState: { values },
@@ -14,4 +14,4 @@ function NewPlaceForm(props) {
   )
 }
 
-export default NewPlaceForm;
+export default NewPlaceInputSet;

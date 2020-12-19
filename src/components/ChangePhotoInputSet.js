@@ -1,7 +1,7 @@
 import { useEffect, useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-function ChangePhotoForm(props) {
+function ChangePhotoInputSet(props) {
   const {
     handleInputChange,
     inputState: { values, updater },
@@ -21,4 +21,4 @@ function ChangePhotoForm(props) {
   )
 }
 
-export default ChangePhotoForm;
+export default ChangePhotoInputSet;
