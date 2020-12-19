@@ -5,6 +5,7 @@ function PopupForm(props) {
     inputState: { values, updater },
     contentsConfig: { name: popupName, title },
     updateData,
+    toggleAuthDialog,
   } = props; // popupName введено вместо name для исключения конфликта с CurrentUserContext
 
   function handleInputChange(event) {
@@ -28,11 +29,19 @@ function PopupForm(props) {
         <button type="submit" className="button popup__button" >Сохранить</button> {/* disabled */}
         {
           popupName === "login"
-          && (<p className="popup__prompt">или <span className="popup__prompt-link">зарегистрироваться</span></p>)
+          && (
+            <p className="popup__prompt">
+              или <span className="popup__prompt-link" onClick={toggleAuthDialog}>зарегистрироваться</span>
+            </p>
+          )
         }
         {
           popupName === "signup"
-          && (<p className="popup__prompt">или <span className="popup__prompt-link">войти</span></p>)
+          && (
+            <p className="popup__prompt">
+              или <span className="popup__prompt-link" onClick={toggleAuthDialog}>войти</span>
+            </p>
+          )
         }
       </form>
     </div>

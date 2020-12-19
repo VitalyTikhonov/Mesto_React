@@ -1,20 +1,8 @@
-import { useEffect, useContext } from 'react';
-// import { CurrentUserContext } from '../contexts/CurrentUserContext';
-
 function LoginInputSet(props) {
   const {
     handleInputChange,
-    inputState: { values, updater },
+    inputState: { values },
   } = props;
-
-  // const { userDescription, userName } = useContext(CurrentUserContext);
-
-  // useEffect(() => {
-  //   updater({
-  //     userName,
-  //     userDescription,
-  //   });
-  // }, [updater, userName, userDescription]); // updater добавлен, чтобы линтер не ругался. Как обойти?
 
   return (
     <>

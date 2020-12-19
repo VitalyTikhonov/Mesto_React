@@ -59,6 +59,7 @@ function App() {
       // const serverResponse = await api.signup(userInputObj);
       // setCurrentUser(serverResponse);
       setSignupPopupOpen(false);
+      setLoginPopupOpen(true);
     } catch (err) {
       const errResJson = await err.json();
       console.log(errResJson);
@@ -73,6 +74,7 @@ function App() {
     } catch (err) {
       const errResJson = await err.json();
       console.log(errResJson);
+      // console.log(err);
     }
   }
 
@@ -111,16 +113,26 @@ function App() {
 
   useEffect(function () {
     async function fetchUserData() {
-      const currentUserData = await api.getUserInfo();
-      setCurrentUser(currentUserData);
+      try {
+        const currentUserData = await api.getUserInfo();
+        setCurrentUser(currentUserData);
+      } catch (err) {
+        const errResJson = await err.json();
+        console.log(errResJson);
+      }
     }
     fetchUserData();
   }, []);
 
   useEffect(function () {
     async function fetchCards() {
-      const cards = await api.getCards();
-      setCards(cards);
+      try {
+        const cards = await api.getCards();
+        setCards(cards);
+      } catch (err) {
+        const errResJson = await err.json();
+        console.log(errResJson);
+      }
     }
     fetchCards();
   }, []);
@@ -143,6 +155,11 @@ function App() {
     } catch (err) {
       console.log(err);
     };
+  }
+
+  function toggleAuthDialog() {
+    setSignupPopupOpen(!isSignupPopupOpen);
+    setLoginPopupOpen(!isLoginPopupOpen);
   }
 
   /* просто прокидывать сами стейт-сеттеры? */
@@ -200,6 +217,7 @@ function App() {
             }}
             handlePopupControlAction={handlePopupControlAction}
             updateData={signup}
+            toggleAuthDialog={toggleAuthDialog}
           />
         )}
         {isLoginPopupOpen && (
@@ -212,6 +230,7 @@ function App() {
             }}
             handlePopupControlAction={handlePopupControlAction}
             updateData={login}
+            toggleAuthDialog={toggleAuthDialog}
           />
         )}
         {isEditProfilePopupOpen && (

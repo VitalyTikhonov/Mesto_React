@@ -12,6 +12,7 @@ function Popup(props) {
     InputSet,
     inputState,
     card,
+    toggleAuthDialog,
   } = props;
 
   useEffect(() => {
@@ -47,6 +48,7 @@ function Popup(props) {
           contentsConfig={contentsConfig}
           updateData={updateData}
           inputState={inputState}
+          toggleAuthDialog={toggleAuthDialog}
         />}
         {card && <PopupImageView card={card} />}
       </div>
