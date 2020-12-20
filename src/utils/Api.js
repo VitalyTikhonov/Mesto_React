@@ -47,7 +47,7 @@ class Api {
           // authorization: this.authorization,
           'Content-Type': this.content_type,
         },
-        // credentials: 'include',
+        credentials: 'include', // включено, поскольку реализована авторизация сразу после регистрации
         body: JSON.stringify({
           userName,
           userDescription,

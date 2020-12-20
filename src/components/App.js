@@ -55,11 +55,16 @@ function App() {
 
   async function signup(userInputObj) {
     try {
-      await api.signup(userInputObj);
-      // const serverResponse = await api.signup(userInputObj);
-      // setCurrentUser(serverResponse);
+      const serverResponse = await api.signup(userInputObj);
+      // console.log('signup serverResponse\n', serverResponse);
+      setCurrentUser(serverResponse);
       setSignupPopupOpen(false);
-      setLoginPopupOpen(true);
+      setSignupValues({
+        userName: '',
+        userDescription: '',
+        avatar: '',
+        email: '',
+      });
     } catch (err) {
       const errResJson = await err.json();
       console.log(errResJson);
@@ -69,8 +74,13 @@ function App() {
   async function login(userInputObj) {
     try {
       const serverResponse = await api.login(userInputObj);
+      // console.log('login serverResponse\n', serverResponse);
       setCurrentUser(serverResponse);
       setLoginPopupOpen(false);
+      setLoginValues({
+        email: '',
+        password: '',
+      });
     } catch (err) {
       const errResJson = await err.json();
       console.log(errResJson);
@@ -81,6 +91,7 @@ function App() {
   async function updateUserData(userInputObj) {
     try {
       const serverResponse = await api.saveProfile(userInputObj);
+      // console.log('updateUserData serverResponse\n', serverResponse);
       setCurrentUser(serverResponse);
       setIsEditProfilePopupOpen(false);
     } catch (err) {
