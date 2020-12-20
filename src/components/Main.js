@@ -1,35 +1,30 @@
-import { useContext } from 'react';
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { Switch } from "react-router-dom";
+import ProtectedRoute from './ProtectedRoute';
+import UserProfile from './UserProfile';
 import Card from './Card';
 
 function Main(props) {
-  const { popupMap, handlePopupControlAction, cards, handleCardLike, handleCardDelete } = props;
   const {
-    userDescription,
-    avatar,
-    // email,
-    userName,
-    // _id,
-  } = useContext(CurrentUserContext);
-
-  const {
-    form: { editProfile, changePhoto, newPlace },
-    imageZoom,
-  } = popupMap;
+    loggedIn,
+    popupMap: { form, imageZoom },
+    handlePopupControlAction,
+    cards,
+    handleCardLike,
+    handleCardDelete,
+  } = props;
+  // console.log('Main loggedIn', loggedIn);
 
   return (
     <main className="main">
-      <section className="profile root__section">
-        <div className="user-info">
-          <div className="user-info__photo" id={changePhoto.name + 'OpenElem'} onClick={handlePopupControlAction} style={{ backgroundImage: `url(${avatar})` }} />
-          <div className="user-info__data">
-            <h1 className="user-info__name">{userName}</h1>
-            <p className="user-info__about">{userDescription}</p>
-            <button className="button user-info__button-edit-profile" id={editProfile.name + 'OpenElem'} onClick={handlePopupControlAction}>Редактировать</button>
-          </div>
-          <button className="button user-info__button" id={newPlace.name + 'OpenElem'} onClick={handlePopupControlAction}>+</button>
-        </div>
-      </section>
+      <Switch>
+        <ProtectedRoute
+          path="/user-profile"
+          loggedIn={loggedIn}
+          component={UserProfile}
+          form={form}
+          handlePopupControlAction={handlePopupControlAction}
+        />
+      </Switch>
       <section className="places-list root__section">
         {cards && cards.map((cardData, index) => {
           return <Card

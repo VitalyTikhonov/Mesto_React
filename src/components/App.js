@@ -14,6 +14,7 @@ import { popupConfig } from '../configs/constants';
 // import '../utils/onetimeOperations';
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
   const [isSignupPopupOpen, setSignupPopupOpen] = useState(false);
   const [isLoginPopupOpen, setLoginPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -21,7 +22,6 @@ function App() {
   const [isAddCardPopupOpen, setIsAddCardPopupOpen] = useState(false);
   const [popupMap] = useState(popupConfig);
   const [selectedCard, setSelectedCard] = useState(null);
-  const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({
     userName: '',
     userDescription: '',
@@ -144,33 +144,6 @@ function App() {
     }
   }
 
-  useEffect(function () {
-    async function fetchUserData() {
-      try {
-        const currentUserData = await api.getUserInfo();
-        setLoggedIn(true);
-        setCurrentUser(currentUserData);
-      } catch (err) {
-        const errResJson = await err.json();
-        console.log(errResJson);
-      }
-    }
-    fetchUserData();
-  }, []);
-
-  useEffect(function () {
-    async function fetchCards() {
-      try {
-        const cards = await api.getCards();
-        setCards(cards);
-      } catch (err) {
-        const errResJson = await err.json();
-        console.log(errResJson);
-      }
-    }
-    fetchCards();
-  }, []);
-
   async function handleCardLike(card, likeOrUnlike) {
     try {
       const newCard = await api.toggleCardLike(card._id, likeOrUnlike);
@@ -225,6 +198,33 @@ function App() {
     document.activeElement.blur(); // Чтобы попап не закрывался по Enter
   }
 
+  useEffect(function () {
+    async function fetchUserData() {
+      try {
+        const currentUserData = await api.getUserInfo();
+        setLoggedIn(true);
+        setCurrentUser(currentUserData);
+      } catch (err) {
+        const errResJson = await err.json();
+        console.log(errResJson);
+      }
+    }
+    fetchUserData();
+  }, []);
+
+  useEffect(function () {
+    async function fetchCards() {
+      try {
+        const cards = await api.getCards();
+        setCards(cards);
+      } catch (err) {
+        const errResJson = await err.json();
+        console.log(errResJson);
+      }
+    }
+    fetchCards();
+  }, []);
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="root">
@@ -236,6 +236,7 @@ function App() {
         />
 
         <Main
+          loggedIn={loggedIn}
           popupMap={popupMap}
           handlePopupControlAction={handlePopupControlAction}
           cards={cards}
