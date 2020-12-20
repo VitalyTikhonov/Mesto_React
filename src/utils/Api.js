@@ -79,6 +79,21 @@ class Api {
       .then(res => this.primaryResponseHandler(res));
   }
 
+  logout() {
+    return fetch(
+      `${this.baseUrl}/signout`,
+      {
+        method: 'POST',
+        headers: {
+          // authorization: this.authorization,
+          'Content-Type': this.content_type,
+        },
+        credentials: 'include',
+      },
+    )
+      .then(res => this.primaryResponseHandler(res));
+  }
+
   saveProfile({ userName, userDescription }) {
     return fetch(
       `${this.baseUrl}/users/me`,

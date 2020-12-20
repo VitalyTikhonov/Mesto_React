@@ -21,6 +21,7 @@ function App() {
   const [isAddCardPopupOpen, setIsAddCardPopupOpen] = useState(false);
   const [popupMap] = useState(popupConfig);
   const [selectedCard, setSelectedCard] = useState(null);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({
     userName: '',
     userDescription: '',
@@ -57,8 +58,9 @@ function App() {
     try {
       const serverResponse = await api.signup(userInputObj);
       // console.log('signup serverResponse\n', serverResponse);
-      setCurrentUser(serverResponse);
       setSignupPopupOpen(false);
+      setLoggedIn(true);
+      setCurrentUser(serverResponse);
       setSignupValues({
         userName: '',
         userDescription: '',
@@ -75,11 +77,31 @@ function App() {
     try {
       const serverResponse = await api.login(userInputObj);
       // console.log('login serverResponse\n', serverResponse);
-      setCurrentUser(serverResponse);
       setLoginPopupOpen(false);
+      setLoggedIn(true);
+      setCurrentUser(serverResponse);
       setLoginValues({
         email: '',
         password: '',
+      });
+    } catch (err) {
+      const errResJson = await err.json();
+      console.log(errResJson);
+      // console.log(err);
+    }
+  }
+
+  async function logout() {
+    try {
+      await api.logout();
+      // console.log('logout serverResponse\n', serverResponse);
+      setLoggedIn(false);
+      setCurrentUser({
+        userName: '',
+        userDescription: '',
+        avatar: '',
+        email: '',
+        _id: '',
       });
     } catch (err) {
       const errResJson = await err.json();
@@ -126,6 +148,7 @@ function App() {
     async function fetchUserData() {
       try {
         const currentUserData = await api.getUserInfo();
+        setLoggedIn(true);
         setCurrentUser(currentUserData);
       } catch (err) {
         const errResJson = await err.json();
@@ -208,6 +231,8 @@ function App() {
         <Header
           popupMap={popupMap}
           handlePopupControlAction={handlePopupControlAction}
+          authStatus={{loggedIn}}
+          logout={logout}
         />
 
         <Main
