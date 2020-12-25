@@ -2,7 +2,7 @@ import { Switch, Route } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 import ProjectInfo from './ProjectInfo';
 import UserProfile from './UserProfile';
-import Card from './Card';
+import CardList from './CardList';
 
 function Main(props) {
   const {
@@ -18,6 +18,13 @@ function Main(props) {
       <Switch>
         <Route exact path="/">
           <ProjectInfo />
+          <CardList
+            imageZoom={imageZoom}
+            cards={cards}
+            handlePopupControlAction={handlePopupControlAction}
+            handleCardLike={handleCardLike}
+            handleCardDelete={handleCardDelete}
+          />
         </Route>
 
         <Route path="/user-profile">
@@ -26,21 +33,16 @@ function Main(props) {
             form={form}
             handlePopupControlAction={handlePopupControlAction}
           />
+          <CardList
+            imageZoom={imageZoom}
+            cards={cards}
+            handlePopupControlAction={handlePopupControlAction}
+            handleCardLike={handleCardLike}
+            handleCardDelete={handleCardDelete}
+            onesOwnCardsOnly="true"
+          />
         </Route>
       </Switch>
-      <section className="places-list root__section">
-        {cards && cards.map((cardData, index) => {
-          return <Card
-            key={`${index}_${cardData.id}`}
-            cardData={cardData}
-            handlePopupControlAction={handlePopupControlAction}
-            popupName={imageZoom.name}
-            onCardLike={handleCardLike}
-            onCardDelete={handleCardDelete}
-          />;
-        }
-        )}
-      </section>
     </main >
   )
 }

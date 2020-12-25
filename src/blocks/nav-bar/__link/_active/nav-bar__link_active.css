@@ -1,8 +1,9 @@
 .nav-bar__link_active {
   color: #669AC9;
   opacity: 1;
+  font-weight: bolder;
 }
 
 .nav-bar__link_active:hover {
-  opacity: .7;
+  opacity: 1;
 }

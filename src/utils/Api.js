@@ -146,21 +146,6 @@ class Api {
       .then(res => this.primaryResponseHandler(res));
   }
 
-  getOnesOwnCards() {
-    return fetch(
-      `${this.baseUrl}/cards/mine`,
-      {
-        method: 'GET',
-        // headers: {
-        //   // authorization: this.authorization,
-        //   // 'Content-Type': this.content_type,
-        // },
-        credentials: 'include',
-      }
-    )
-      .then(res => this.primaryResponseHandler(res));
-  }
-
   addCard({ placeName, placeImagelink }) {
     return fetch(
       `${this.baseUrl}/cards`,

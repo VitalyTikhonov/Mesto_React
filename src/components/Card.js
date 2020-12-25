@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { LoginStatusContext } from '../contexts/LoginStatusContext';
 
 function Card(props) {
-  const currentUser = useContext(CurrentUserContext);
   const {
     cardData,
     cardData: { _id, name, link, owner, likes },
@@ -11,6 +11,8 @@ function Card(props) {
     onCardLike,
     onCardDelete,
   } = props;
+  const currentUser = useContext(CurrentUserContext);
+  const loginStatus = useContext(LoginStatusContext);
 
   const isOwn = owner === currentUser._id;
   const isLiked = likes.some((_id) => _id === currentUser._id);
@@ -54,6 +56,7 @@ function Card(props) {
           <button
             className={`like__icon ${isLiked ? 'like__icon_liked' : ""}`}
             onClick={handleLikeClick}
+            disabled={loginStatus === 'loggedIn' ? false : true}
           />
           <span className="like__count">{likes.length}</span>
         </div>
