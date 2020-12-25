@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/Mesto_React/static/css/main.cbdd9509.chunk.css",
+    "main.js": "/Mesto_React/static/js/main.43214825.chunk.js",
+    "main.js.map": "/Mesto_React/static/js/main.43214825.chunk.js.map",
+    "runtime-main.js": "/Mesto_React/static/js/runtime-main.9b6b605b.js",
+    "runtime-main.js.map": "/Mesto_React/static/js/runtime-main.9b6b605b.js.map",
+    "static/js/2.c2795da1.chunk.js": "/Mesto_React/static/js/2.c2795da1.chunk.js",
+    "static/js/2.c2795da1.chunk.js.map": "/Mesto_React/static/js/2.c2795da1.chunk.js.map",
+    "index.html": "/Mesto_React/index.html",
+    "static/css/main.cbdd9509.chunk.css.map": "/Mesto_React/static/css/main.cbdd9509.chunk.css.map",
+    "static/js/2.c2795da1.chunk.js.LICENSE.txt": "/Mesto_React/static/js/2.c2795da1.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/Mesto_React/static/media/trash-icon.5b1a1cdd.svg",
+    "static/media/close.8a65f75d.svg": "/Mesto_React/static/media/close.8a65f75d.svg",
+    "static/media/logo.fad4f8a5.svg": "/Mesto_React/static/media/logo.fad4f8a5.svg",
+    "static/media/vitaliytikhonov.152f7d20.jpg": "/Mesto_React/static/media/vitaliytikhonov.152f7d20.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.9b6b605b.js",
+    "static/js/2.c2795da1.chunk.js",
+    "static/css/main.cbdd9509.chunk.css",
+    "static/js/main.43214825.chunk.js"
+  ]
+}
