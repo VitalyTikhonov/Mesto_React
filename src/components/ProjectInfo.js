@@ -1,6 +1,7 @@
+import { memo } from 'react';
 import authorPhotoPath from '../images/vitaliytikhonov.jpg';
 
-function ProjectInfo() {
+const ProjectInfo = memo(function ProjectInfo() {
   return (
     <section className="project-info root__section">
       <img
@@ -17,10 +18,10 @@ function ProjectInfo() {
 
           <p className="project-info__text">Этот вариант «Места» – мой первый учебный проект на фреймворке React.js.</p>
 
-          <p className="project-info__text">Здесь можно публиковать фотографии мест, которые вам интересны, и смотреть изображения, добавленные другими.</p>
+          <p className="project-info__text">Здесь можно публиковать фотографии мест, которые вам интересны, и смотреть изображения, добавленные другими. Чтобы добавить карточку или изменить свои данные, перейдите в Профиль.</p>
         </div>
     </section>
   )
-}
+});
 
 export default ProjectInfo;

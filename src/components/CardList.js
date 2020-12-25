@@ -1,8 +1,8 @@
-import { useState, useEffect, useContext } from 'react';
+import { memo, useState, useEffect, useContext } from 'react';
 import Card from './Card';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-function CardList(props) {
+const CardList = memo(function CardList(props) {
   const {
     imageZoom,
     cards,
@@ -38,6 +38,6 @@ function CardList(props) {
       )}
     </section>
   )
-}
+});
 
 export default CardList;

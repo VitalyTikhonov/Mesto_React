@@ -1,11 +1,12 @@
+import { memo } from 'react';
 import NavBar from './NavBar';
 import logoImage from '../images/logo.svg';
 
-function Header(props) {
+const Header = memo(function Header(props) {
   const {
     popupMap,
     handlePopupControlAction,
-    authStatus: { loginStatus },
+    loginStatus,
     logout,
   } = props;
   const {
@@ -37,6 +38,6 @@ function Header(props) {
       </div>
     </header>
   )
-}
+});
 
 export default Header;

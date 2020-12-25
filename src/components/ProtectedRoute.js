@@ -1,13 +1,12 @@
-// import React from 'react';
-import { useContext } from 'react';
+import { memo, useContext } from 'react';
 import { LoginStatusContext } from '../contexts/LoginStatusContext';
-import { Route, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import Loader from './Loader';
 
-function ProtectedRoute({ component: Component, ...props }) {
+const ProtectedRoute = memo(function ProtectedRoute({ component: Component, ...props }) {
   const loginStatus = useContext(LoginStatusContext);
 
-  // console.log('loginStatus', loginStatus);
+  console.log('loginStatus', loginStatus);
   if (loginStatus === 'unknown') {
     return <Loader />
   } else {
@@ -31,6 +30,6 @@ function ProtectedRoute({ component: Component, ...props }) {
 
   // return () => props.loggedIn ? <Component {...props} /> : <Redirect to="./" />;
   // на такое Реакт ругается в консоли
-}
+});
 
 export default ProtectedRoute;

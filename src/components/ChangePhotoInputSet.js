@@ -1,24 +1,17 @@
-import { useEffect, useContext } from 'react';
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { memo } from 'react';
 
-function ChangePhotoInputSet(props) {
+const ChangePhotoInputSet = memo(function ChangePhotoInputSet(props) {
   const {
     handleInputChange,
-    inputState: { values, updater },
+    inputStateValues,
   } = props;
-
-  const { avatar } = useContext(CurrentUserContext);
-
-  useEffect(() => {
-    updater({ avatar });
-  }, [updater, avatar]); // updater добавлен, чтобы линтер не ругался. Как обойти?
 
   return (
     <>
-      <input type="url" name="avatar" value={values.avatar} id="avatar" className="popup__input" onChange={handleInputChange} placeholder="Ссылка на аватар" required />
+      <input type="url" name="avatar" value={inputStateValues.avatar} id="avatar" className="popup__input" onChange={handleInputChange} placeholder="Ссылка на аватар" required />
       <span className="popup__error" id="avatar-error" />
     </>
   )
-}
+});
 
 export default ChangePhotoInputSet;

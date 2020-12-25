@@ -1,7 +1,7 @@
-import { useContext } from 'react';
+import { memo, useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-function UserProfile(props) {
+const UserProfile = memo(function UserProfile(props) {
   const { handlePopupControlAction, form: { editProfile, changePhoto, newPlace } } = props;
 
   const {
@@ -25,6 +25,6 @@ function UserProfile(props) {
       </div>
     </section>
   );
-}
+});
 
 export default UserProfile;

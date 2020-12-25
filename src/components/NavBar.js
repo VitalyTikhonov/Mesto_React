@@ -1,8 +1,8 @@
-import { useContext } from 'react';
+import { memo, useContext } from 'react';
 import { LoginStatusContext } from '../contexts/LoginStatusContext';
 import { NavLink } from 'react-router-dom';
 
-function NavBar() {
+const NavBar = memo(function NavBar() {
   const loginStatus = useContext(LoginStatusContext);
   return (
     <nav className="nav-bar">
@@ -17,6 +17,6 @@ function NavBar() {
         </NavLink>}
     </nav>
   )
-}
+});
 
 export default NavBar;

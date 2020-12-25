@@ -1,8 +1,10 @@
-function PopupForm(props) {
+import { memo } from 'react';
+
+const PopupForm = memo(function PopupForm(props) {
   const {
     InputSet,
-    inputState,
-    inputState: { values, updater },
+    inputStateValues,
+    inputStateUpdater,
     contentsConfig: { name: popupName, title },
     updateData,
     toggleAuthDialog,
@@ -10,22 +12,26 @@ function PopupForm(props) {
 
   function handleInputChange(event) {
     const { name, value } = event.target;
-    updater({
-      ...values,
+    inputStateUpdater({
+      ...inputStateValues,
       [name]: value,
     });
   }
 
   function handleSubmit(event) {
     event.preventDefault();
-    updateData(values);
+    updateData(inputStateValues);
   }
 
   return (
     <div className="popup__content popup__content_type_form">
       <h3 className="popup__title">{title}</h3>
       <form className="popup__form" name={popupName} onSubmit={handleSubmit} noValidate>
-        <InputSet handleInputChange={handleInputChange} inputState={inputState} />
+        <InputSet
+          handleInputChange={handleInputChange}
+          inputStateValues={inputStateValues}
+          inputStateUpdater={inputStateUpdater}
+        />
         <button type="submit" className="button popup__button" >Сохранить</button> {/* disabled */}
         {
           popupName === "login"
@@ -46,6 +52,6 @@ function PopupForm(props) {
       </form>
     </div>
   )
-}
+});
 
 export default PopupForm;

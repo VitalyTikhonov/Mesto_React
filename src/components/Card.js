@@ -1,8 +1,8 @@
-import { useContext } from 'react';
+import { memo, useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { LoginStatusContext } from '../contexts/LoginStatusContext';
 
-function Card(props) {
+const Card = memo(function Card(props) {
   const {
     cardData,
     cardData: { _id, name, link, owner, likes },
@@ -63,7 +63,7 @@ function Card(props) {
       </div>
     </div>
   )
-}
+});
 
 export default Card;
 

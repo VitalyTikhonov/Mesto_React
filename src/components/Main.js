@@ -1,10 +1,11 @@
+import { memo } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 import ProjectInfo from './ProjectInfo';
 import UserProfile from './UserProfile';
 import CardList from './CardList';
 
-function Main(props) {
+const Main = memo(function Main(props) {
   const {
     popupMap: { form, imageZoom },
     handlePopupControlAction,
@@ -45,6 +46,6 @@ function Main(props) {
       </Switch>
     </main >
   )
-}
+});
 
 export default Main;

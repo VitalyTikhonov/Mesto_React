@@ -243,7 +243,7 @@ function App() {
           <Header
             popupMap={popupMap}
             handlePopupControlAction={handlePopupControlAction}
-            authStatus={{ loginStatus }}
+            loginStatus={loginStatus}
             logout={logout}
           />
 
@@ -259,10 +259,8 @@ function App() {
             <Popup
               contentsConfig={popupMap.form.signup}
               InputSet={SignupInputSet}
-              inputState={{
-                values: signupValues,
-                updater: setSignupValues,
-              }}
+              inputStateValues={signupValues}
+              inputStateUpdater={setSignupValues}
               handlePopupControlAction={handlePopupControlAction}
               updateData={signup}
               toggleAuthDialog={toggleAuthDialog}
@@ -272,10 +270,8 @@ function App() {
             <Popup
               contentsConfig={popupMap.form.login}
               InputSet={LoginInputSet}
-              inputState={{
-                values: loginValues,
-                updater: setLoginValues,
-              }}
+              inputStateValues={loginValues}
+              inputStateUpdater={setLoginValues}
               handlePopupControlAction={handlePopupControlAction}
               updateData={login}
               toggleAuthDialog={toggleAuthDialog}
@@ -285,10 +281,8 @@ function App() {
             <Popup
               contentsConfig={popupMap.form.editProfile}
               InputSet={EditProfileInputSet}
-              inputState={{
-                values: editProfileValues,
-                updater: setEditProfileValues,
-              }}
+              inputStateValues={editProfileValues}
+              inputStateUpdater={setEditProfileValues}
               handlePopupControlAction={handlePopupControlAction}
               updateData={updateUserData}
             />
@@ -297,10 +291,8 @@ function App() {
             <Popup
               contentsConfig={popupMap.form.changePhoto}
               InputSet={ChangePhotoInputSet}
-              inputState={{
-                values: changePhotoValues,
-                updater: setChangePhotoValues,
-              }}
+              inputStateValues={changePhotoValues}
+              inputStateUpdater={setChangePhotoValues}
               handlePopupControlAction={handlePopupControlAction}
               updateData={updateUserAvatar}
             />
@@ -309,10 +301,8 @@ function App() {
             <Popup
               contentsConfig={popupMap.form.newPlace}
               InputSet={NewPlaceInputSet}
-              inputState={{
-                values: newPlaceValues,
-                updater: setNewPlaceValues,
-              }}
+              inputStateValues={newPlaceValues}
+              inputStateUpdater={setNewPlaceValues}
               handlePopupControlAction={handlePopupControlAction}
               updateData={saveNewPlaceData}
             />

@@ -1,16 +1,17 @@
 import PopupForm from './PopupForm';
 import PopupImageView from './PopupImageView';
 import closeImage from '../images/close.svg';
-import { useEffect } from 'react';
+import { memo, useEffect } from 'react';
 
-function Popup(props) {
+const Popup = memo(function Popup(props) {
   const {
     contentsConfig,
     contentsConfig: { name },
     handlePopupControlAction,
     updateData,
     InputSet,
-    inputState,
+    inputStateValues,
+    inputStateUpdater,
     card,
     toggleAuthDialog,
   } = props;
@@ -47,13 +48,14 @@ function Popup(props) {
           InputSet={InputSet}
           contentsConfig={contentsConfig}
           updateData={updateData}
-          inputState={inputState}
+          inputStateValues={inputStateValues}
+          inputStateUpdater={inputStateUpdater}
           toggleAuthDialog={toggleAuthDialog}
         />}
         {card && <PopupImageView card={card} />}
       </div>
     </div>
   )
-}
+});
 
 export default Popup;
