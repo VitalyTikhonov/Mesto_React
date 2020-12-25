@@ -1,10 +1,11 @@
+import NavBar from './NavBar';
 import logoImage from '../images/logo.svg';
 
 function Header(props) {
   const {
     popupMap,
     handlePopupControlAction,
-    authStatus: { loggedIn },
+    authStatus: { loginStatus },
     logout,
   } = props;
   const {
@@ -12,7 +13,7 @@ function Header(props) {
   } = popupMap;
 
   function handleAuthButtonClick() {
-    if (loggedIn) {
+    if (loginStatus === 'loggedIn') {
       logout();
     } else {
       const eventImitation = { target: { id: login.name + 'OpenElem' } }
@@ -23,14 +24,17 @@ function Header(props) {
   return (
     <header className="header root__section">
       <img src={logoImage} alt="mesto logo" className="logo" />
-      <button
-        type="button"
-        className="button header__auth-button"
-        // id={login.name + 'OpenElem'}
-        onClick={handleAuthButtonClick}
-      >
-        {loggedIn ? 'Выйти' : 'Войти'}
-      </button>
+      <div className="header__menu">
+        <NavBar />
+        <button
+          type="button"
+          className="button header__auth-button"
+          // id={login.name + 'OpenElem'}
+          onClick={handleAuthButtonClick}
+        >
+          {loginStatus === 'loggedIn' ? 'Выйти' : 'Войти'}
+        </button>
+      </div>
     </header>
   )
 }

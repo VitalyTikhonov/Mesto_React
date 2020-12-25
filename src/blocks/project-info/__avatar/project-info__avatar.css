@@ -1,0 +1,25 @@
+.project-info__avatar {
+  object-fit: cover;
+  width: 272px;
+  height: 272px;
+  border-radius: 50%;
+  align-self: center;
+}
+
+@media (min-width: 510px) and (max-width: 1241px) {
+  .project-info__avatar {
+    align-self: flex-start;
+    margin-right: 32px;
+    width: 232px;
+    height: 232px;
+  }
+}
+
+@media (min-width: 1242px) {
+  .project-info__avatar {
+    margin-top: 17px;
+    margin-right: 4.1vw;
+    width: 464px;
+    height: 464px;
+  }
+}

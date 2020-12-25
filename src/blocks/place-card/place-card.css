@@ -7,6 +7,7 @@
 .place-card {
   width: 282px;
   background-color: #fff;
+  color: #000000;
   border-radius: 10px;
   min-height: 360px;
 }

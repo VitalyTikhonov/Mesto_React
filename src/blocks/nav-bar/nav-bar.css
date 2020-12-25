@@ -1,0 +1,6 @@
+@import url(./__link/nav-bar__link.css);
+@import url(./__link/_active/nav-bar__link_active.css);
+
+.nav-bar {
+ margin-right: 10px;
+}

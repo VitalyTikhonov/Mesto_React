@@ -3,15 +3,20 @@
 @import url(./blocks/root/root.css);
 @import url(./blocks/header/header.css);
 @import url(./blocks/logo/logo.css);
+@import url(./blocks/project-info/project-info.css);
 @import url(./blocks/profile/profile.css);
 @import url(./blocks/user-info/user-info.css);
 @import url(./blocks/button/button.css);
 @import url(./blocks/places-list/places-list.css);
 @import url(./blocks/place-card/place-card.css);
+@import url(./blocks/section-headline/section-headline.css);
 @import url(./blocks/popup/popup.css);
+@import url(./blocks/nav-bar/nav-bar.css);
+@import url(./blocks/link/link.css);
 
 body {
   background-color: #000;
+  color: white;
 }
 
 /* СЛУЖЕБНАЯ ПОДСВЕТКА ОБЪЕКТОВ ТЕНЬЮ */

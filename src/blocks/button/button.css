@@ -9,3 +9,7 @@
 .button:focus {
   outline-color: greenyellow;
 }
+
+.button:hover {
+  opacity: .6;
+}

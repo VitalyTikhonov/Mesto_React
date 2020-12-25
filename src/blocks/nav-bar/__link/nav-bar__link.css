@@ -1,0 +1,11 @@
+.nav-bar__link {
+  margin-right: 10px;
+}
+
+.nav-bar__link:last-child {
+  margin-right: 0;
+}
+
+.nav-bar__link:hover {
+  opacity: .6;
+}

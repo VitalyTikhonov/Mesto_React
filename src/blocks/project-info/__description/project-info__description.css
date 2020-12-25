@@ -1,0 +1,12 @@
+.project-info__description {
+  margin: 29px 0 0;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+/* @media (min-width: 510px) and (max-width: 768px) { */
+@media (min-width: 510px) {
+  .project-info__description {
+    margin: 0;
+  }
+}

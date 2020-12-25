@@ -1,0 +1,19 @@
+@import url(./__avatar/project-info__avatar.css);
+@import url(./__description/project-info__description.css);
+@import url(./__headline/project-info__headline.css);
+@import url(./__text/project-info__text.css);
+.project-info {
+  padding-top: 32px;
+  padding-bottom: 80px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* @media (min-width: 510px) and (max-width: 768px) { */
+@media (min-width: 510px) {
+  .project-info {
+    padding-top: 44px;
+    padding-bottom: 54px;
+    flex-direction: row;
+  }
+}

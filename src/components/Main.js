@@ -1,29 +1,32 @@
-import { Switch } from "react-router-dom";
+import { Switch, Route } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
+import ProjectInfo from './ProjectInfo';
 import UserProfile from './UserProfile';
 import Card from './Card';
 
 function Main(props) {
   const {
-    loggedIn,
     popupMap: { form, imageZoom },
     handlePopupControlAction,
     cards,
     handleCardLike,
     handleCardDelete,
   } = props;
-  // console.log('Main loggedIn', loggedIn);
 
   return (
     <main className="main">
       <Switch>
-        <ProtectedRoute
-          path="/user-profile"
-          loggedIn={loggedIn}
-          component={UserProfile}
-          form={form}
-          handlePopupControlAction={handlePopupControlAction}
-        />
+        <Route exact path="/">
+          <ProjectInfo />
+        </Route>
+
+        <Route path="/user-profile">
+          <ProtectedRoute
+            component={UserProfile}
+            form={form}
+            handlePopupControlAction={handlePopupControlAction}
+          />
+        </Route>
       </Switch>
       <section className="places-list root__section">
         {cards && cards.map((cardData, index) => {
