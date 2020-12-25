@@ -1,5 +1,6 @@
 .nav-bar__link {
   margin-right: 10px;
+  color: white;
 }
 
 .nav-bar__link:last-child {
