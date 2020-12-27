@@ -6,7 +6,7 @@ import Loader from './Loader';
 const ProtectedRoute = memo(function ProtectedRoute({ component: Component, ...props }) {
   const loginStatus = useContext(LoginStatusContext);
 
-  console.log('loginStatus', loginStatus);
+  // console.log('loginStatus', loginStatus);
   if (loginStatus === 'unknown') {
     return <Loader />
   } else {

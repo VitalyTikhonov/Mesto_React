@@ -27,7 +27,7 @@ const CardList = memo(function CardList(props) {
     <section className="places-list root__section">
       {cardsToRender && cardsToRender.map((cardData, index) => {
         return <Card
-          key={`${index}_${cardData.id}`}
+          key={`${index}_${cardData._id}`}
           cardData={cardData}
           handlePopupControlAction={handlePopupControlAction}
           popupName={imageZoom.name}
