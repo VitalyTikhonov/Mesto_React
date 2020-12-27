@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import formValidator from '../utils/FormValidator';
 
 const PopupForm = memo(function PopupForm(props) {
   const {
@@ -10,12 +11,21 @@ const PopupForm = memo(function PopupForm(props) {
     toggleAuthDialog,
   } = props; // popupName введено вместо name для исключения конфликта с CurrentUserContext
 
-  function handleInputChange(event) {
+  function handleFieldChange(event) {
     const { name, value } = event.target;
     inputStateUpdater({
       ...inputStateValues,
       [name]: value,
     });
+  }
+
+  function handleFieldInput(event) {
+    const inputNode = event.target;
+    formValidator.checkField(inputNode);
+    // inputStateUpdater({
+    //   ...inputStateValues,
+    //   [name]: value,
+    // });
   }
 
   function handleSubmit(event) {
@@ -28,7 +38,8 @@ const PopupForm = memo(function PopupForm(props) {
       <h3 className="popup__title">{title}</h3>
       <form className="popup__form" name={popupName} onSubmit={handleSubmit} noValidate>
         <InputSet
-          handleInputChange={handleInputChange}
+          handleFieldChange={handleFieldChange}
+          handleFieldInput={handleFieldInput}
           inputStateValues={inputStateValues}
           inputStateUpdater={inputStateUpdater}
         />
