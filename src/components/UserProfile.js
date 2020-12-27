@@ -19,9 +19,9 @@ const UserProfile = memo(function UserProfile(props) {
         <div className="user-info__data">
           <h1 className="user-info__name">{userName}</h1>
           <p className="user-info__about">{userDescription}</p>
-          <button className="button user-info__button-edit-profile" id={editProfile.name + 'OpenElem'} onClick={handlePopupControlAction}>Редактировать</button>
+          <button className="button button__square_black-outline-white user-info__button-edit-profile" id={editProfile.name + 'OpenElem'} onClick={handlePopupControlAction}>Редактировать</button>
         </div>
-        <button className="button user-info__button" id={newPlace.name + 'OpenElem'} onClick={handlePopupControlAction}>+</button>
+        <button className="button button__square_black-outline-white user-info__button" id={newPlace.name + 'OpenElem'} onClick={handlePopupControlAction}>+</button>
       </div>
     </section>
   );

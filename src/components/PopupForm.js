@@ -32,7 +32,7 @@ const PopupForm = memo(function PopupForm(props) {
           inputStateValues={inputStateValues}
           inputStateUpdater={inputStateUpdater}
         />
-        <button type="submit" className="button popup__button" >Сохранить</button> {/* disabled */}
+        <button type="submit" className="button button__square_black-outline-white popup__button" >Сохранить</button> {/* disabled */}
         {
           popupName === "login"
           && (

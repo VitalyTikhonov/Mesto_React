@@ -1,0 +1,9 @@
+.button__breadcrumb_labelled {
+  /* outer */
+  height: 40px;
+  /* inner */
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 10px;
+  background: #FFFFFF;
+}

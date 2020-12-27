@@ -1,0 +1,7 @@
+.button__square_transparent-outline-white {
+  /* outer */
+  /* inner */
+  background: transparent;
+  color: #FFFFFF;
+  border: 1px solid #FFFFFF;
+}

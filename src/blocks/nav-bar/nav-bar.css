@@ -4,3 +4,11 @@
 .nav-bar {
  margin-right: 10px;
 }
+
+@media (max-width: 470px) {
+  .nav-bar {
+    display: flex;
+    flex-direction: column;
+    margin-right: 0;
+  }
+}
