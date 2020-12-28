@@ -53,6 +53,7 @@ const PopupForm = memo(function PopupForm(props) {
   }
 
   function toggleButtonState(isFormValid) {
+    // console.log('isFormValid', isFormValid);
     if (isFormValid) {
       submitButtonRef.current.removeAttribute('disabled');
     } else {
@@ -85,7 +86,6 @@ const PopupForm = memo(function PopupForm(props) {
   }
 
   function handleFieldInput(event) {
-    // console.log('checkForm', checkForm());
     const inputNode = event.target;
     formValidator.checkField(inputNode);
     updateErrorMessage(inputNode);
@@ -117,6 +117,10 @@ const PopupForm = memo(function PopupForm(props) {
     setApiResponseObtained(false);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apiResponseObtained]);
+
+  useEffect(() => {
+    checkForm();
+  }, []);
 
   return (
     <div className="popup__content popup__content_type_form">
