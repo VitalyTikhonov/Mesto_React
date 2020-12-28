@@ -11,18 +11,19 @@ import ChangePhotoInputSet from './ChangePhotoInputSet';
 import NewPlaceInputSet from './NewPlaceInputSet';
 import SignupInputSet from './SignupInputSet';
 import LoginInputSet from './LoginInputSet';
-import { popupConfig } from '../configs/constants';
+import { popupMap } from '../constants/constants';
 // import '../utils/onetimeOperations';
 
 function App() {
   const [loginStatus, setLoginStatus] = useState('unknown');
-  // const [loggedIn, setLoggedIn] = useState(false);
+  const [apiResponseObtained, setApiResponseObtained] = useState(false);
   const [isSignupPopupOpen, setSignupPopupOpen] = useState(false);
   const [isLoginPopupOpen, setLoginPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isAddCardPopupOpen, setIsAddCardPopupOpen] = useState(false);
-  const [popupMap] = useState(popupConfig);
+  const [isMessagePopupOpen, setIsMessagePopupOpen] = useState(false);
+  // const [popupMap] = useState(popupConfig);
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState({
     userName: '',
@@ -55,6 +56,14 @@ function App() {
     placeName: '',
     placeImagelink: '',
   });
+  const [auxPopupText, setAuxPopupText] = useState('');
+
+  async function processCaughtError(err) {
+    setApiResponseObtained(true);
+    const errResJson = await err.json();
+    setAuxPopupText(errResJson.message);
+    setIsMessagePopupOpen(!isMessagePopupOpen);
+  }
 
   async function signup(userInputObj) {
     try {
@@ -71,8 +80,7 @@ function App() {
         email: '',
       });
     } catch (err) {
-      const errResJson = await err.json();
-      console.log(errResJson);
+      processCaughtError(err);
       setLoginStatus('loggedOut');
     }
   }
@@ -90,9 +98,7 @@ function App() {
         password: '',
       });
     } catch (err) {
-      const errResJson = await err.json();
-      console.log(errResJson);
-      // console.log(err);
+      processCaughtError(err);
       setLoginStatus('loggedOut');
     }
   }
@@ -111,9 +117,7 @@ function App() {
         _id: '',
       });
     } catch (err) {
-      const errResJson = await err.json();
-      console.log(errResJson);
-      // console.log(err);
+      processCaughtError(err);
     }
   }
 
@@ -124,8 +128,7 @@ function App() {
       setCurrentUser(serverResponse);
       setIsEditProfilePopupOpen(false);
     } catch (err) {
-      const errResJson = await err.json();
-      console.log(errResJson);
+      processCaughtError(err);
     }
   }
 
@@ -135,8 +138,7 @@ function App() {
       setCurrentUser(serverResponse);
       setIsEditAvatarPopupOpen(false);
     } catch (err) {
-      const errResJson = await err.json();
-      console.log(errResJson);
+      processCaughtError(err);
     }
   }
 
@@ -146,8 +148,7 @@ function App() {
       setCards([...cards, serverResponse]);
       setIsAddCardPopupOpen(false);
     } catch (err) {
-      const errResJson = await err.json();
-      console.log(errResJson);
+      processCaughtError(err);
     }
   }
 
@@ -194,6 +195,9 @@ function App() {
       case `${popupMap.form.newPlace.name}OpenElem`:
         setIsAddCardPopupOpen(!isAddCardPopupOpen);
         break;
+      case `${popupMap.form.message.name}OpenElem`:
+        setIsMessagePopupOpen(!isMessagePopupOpen);
+        break;
       case `${popupMap.imageZoom.name}OpenElem`:
         const link = event.target.imageUrl;
         link
@@ -234,7 +238,7 @@ function App() {
       }
     }
     fetchCards();
-  }, []);
+  }, [loginStatus]);
 
   return (
     <LoginStatusContext.Provider value={loginStatus}>
@@ -257,54 +261,85 @@ function App() {
 
           {isSignupPopupOpen && (
             <Popup
+              // auxPopup={popupMap.form.message}
               contentsConfig={popupMap.form.signup}
               InputSet={SignupInputSet}
               inputStateValues={signupValues}
               inputStateUpdater={setSignupValues}
-              handlePopupControlAction={handlePopupControlAction}
               updateData={signup}
+              // setAuxPopupText={setAuxPopupText}
+              handlePopupControlAction={handlePopupControlAction}
               toggleAuthDialog={toggleAuthDialog}
+              apiResponseObtained={apiResponseObtained}
+              setApiResponseObtained={setApiResponseObtained}
             />
           )}
           {isLoginPopupOpen && (
             <Popup
+              // auxPopup={popupMap.form.message}
               contentsConfig={popupMap.form.login}
               InputSet={LoginInputSet}
               inputStateValues={loginValues}
               inputStateUpdater={setLoginValues}
-              handlePopupControlAction={handlePopupControlAction}
               updateData={login}
+              // setAuxPopupText={setAuxPopupText}
+              handlePopupControlAction={handlePopupControlAction}
               toggleAuthDialog={toggleAuthDialog}
+              apiResponseObtained={apiResponseObtained}
+              setApiResponseObtained={setApiResponseObtained}
             />
           )}
           {isEditProfilePopupOpen && (
             <Popup
+              // auxPopup={popupMap.form.message}
               contentsConfig={popupMap.form.editProfile}
               InputSet={EditProfileInputSet}
               inputStateValues={editProfileValues}
               inputStateUpdater={setEditProfileValues}
-              handlePopupControlAction={handlePopupControlAction}
               updateData={updateUserData}
+              // setAuxPopupText={setAuxPopupText}
+              handlePopupControlAction={handlePopupControlAction}
+              apiResponseObtained={apiResponseObtained}
+              setApiResponseObtained={setApiResponseObtained}
             />
           )}
           {isEditAvatarPopupOpen && (
             <Popup
+              // auxPopup={popupMap.form.message}
               contentsConfig={popupMap.form.changePhoto}
               InputSet={ChangePhotoInputSet}
               inputStateValues={changePhotoValues}
               inputStateUpdater={setChangePhotoValues}
               handlePopupControlAction={handlePopupControlAction}
               updateData={updateUserAvatar}
+              // setAuxPopupText={setAuxPopupText}
+              apiResponseObtained={apiResponseObtained}
+              setApiResponseObtained={setApiResponseObtained}
             />
           )}
           {isAddCardPopupOpen && (
             <Popup
+              // auxPopup={popupMap.form.message}
               contentsConfig={popupMap.form.newPlace}
               InputSet={NewPlaceInputSet}
               inputStateValues={newPlaceValues}
               inputStateUpdater={setNewPlaceValues}
               handlePopupControlAction={handlePopupControlAction}
               updateData={saveNewPlaceData}
+              // setAuxPopupText={setAuxPopupText}
+              apiResponseObtained={apiResponseObtained}
+              setApiResponseObtained={setApiResponseObtained}
+            />
+          )}
+          {isMessagePopupOpen && (
+            <Popup
+              // auxPopup={popupMap.form.message}
+              auxPopupText={auxPopupText}
+              contentsConfig={popupMap.form.message}
+              handlePopupControlAction={handlePopupControlAction}
+              setPopupOpenVariable={setIsMessagePopupOpen}
+              apiResponseObtained={apiResponseObtained}
+              setApiResponseObtained={setApiResponseObtained}
             />
           )}
           {selectedCard && (
@@ -312,6 +347,8 @@ function App() {
               contentsConfig={popupMap.imageZoom}
               card={selectedCard}
               handlePopupControlAction={handlePopupControlAction}
+              auxPopup={popupMap.form.message}
+              auxPopupText={auxPopupText}
             />
           )}
 

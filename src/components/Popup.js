@@ -8,12 +8,18 @@ const Popup = memo(function Popup(props) {
     contentsConfig,
     contentsConfig: { name },
     handlePopupControlAction,
+    setPopupOpenVariable,
     updateData,
     InputSet,
     inputStateValues,
     inputStateUpdater,
     card,
     toggleAuthDialog,
+    // auxPopup,
+    auxPopupText,
+    // setAuxPopupText,
+    apiResponseObtained,
+    setApiResponseObtained,
   } = props;
 
   useEffect(() => {
@@ -44,14 +50,22 @@ const Popup = memo(function Popup(props) {
           id={name + 'OpenElem'}
           onClick={handlePopupControlAction}
         />
-        {InputSet && <PopupForm
-          InputSet={InputSet}
-          contentsConfig={contentsConfig}
-          updateData={updateData}
-          inputStateValues={inputStateValues}
-          inputStateUpdater={inputStateUpdater}
-          toggleAuthDialog={toggleAuthDialog}
-        />}
+        {(InputSet || auxPopupText) &&
+          <PopupForm
+            InputSet={InputSet}
+            contentsConfig={contentsConfig}
+            updateData={updateData}
+            inputStateValues={inputStateValues}
+            inputStateUpdater={inputStateUpdater}
+            toggleAuthDialog={toggleAuthDialog}
+            // handlePopupControlAction={handlePopupControlAction}
+            setPopupOpenVariable={setPopupOpenVariable}
+            // auxPopup={auxPopup}
+            auxPopupText={auxPopupText}
+            // setAuxPopupText={setAuxPopupText}
+            apiResponseObtained={apiResponseObtained}
+            setApiResponseObtained={setApiResponseObtained}
+          />}
         {card && <PopupImageView card={card} />}
       </div>
     </div>

@@ -9,7 +9,7 @@ const ChangePhotoInputSet = memo(function ChangePhotoInputSet(props) {
 
   return (
     <>
-      <input type="url" name="avatar" value={inputStateValues.avatar} id="avatar" className="popup__input" onChange={handleFieldChange} placeholder="Ссылка на аватар" required />
+      <input type="url" name="avatar" value={inputStateValues.avatar} id="avatar" className="popup__input" onChange={handleFieldChange} onInput={handleFieldInput} placeholder="Ссылка на аватар" required />
       <span className="popup__error" id="avatar-error" />
     </>
   )
