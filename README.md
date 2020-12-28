@@ -1,5 +1,5 @@
 # Mesto React
-A mock project I am doing to practice React.js
+A mock project I am making to practice React.js
 
 Учебный проект по React.js
 <!-- toc -->
@@ -26,6 +26,7 @@ To be deployed at
 - Saving photos (by adding URLs) in your account
 - Deleting previously saved photos
 - Viewing other users' photos
+
 To work in conjunction with this backend https://github.com/VitalyTikhonov/Mesto_Deployment
 
 #### Technologies used
@@ -46,6 +47,7 @@ To work in conjunction with this backend https://github.com/VitalyTikhonov/Mesto
 - Сохранение ссылок на фотографии в своем аккаунте.
 - Удаление ранее сохраненных ссылок.
 - Просмотр изображений, сохраненных другими пользователями.
+
 Рассчитан на работу в связке с бэкенд-частью, опубликованной здесь: https://github.com/VitalyTikhonov/Mesto_Deployment.
 
 #### Используемые технологии
