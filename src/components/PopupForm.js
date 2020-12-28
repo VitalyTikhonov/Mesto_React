@@ -19,22 +19,6 @@ const PopupForm = memo(function PopupForm(props) {
     setApiResponseObtained,
   } = props; // popupName введено вместо name для исключения конфликта с CurrentUserContext
 
-  // function openMessagePopup(text) {
-  //   const eventImitation = { target: { id: auxPopupName + 'OpenElem' } }
-  //   handlePopupControlAction(eventImitation);
-  //   setAuxPopupText(text);
-  // }
-  // const formLabelMap = {
-  //   "login": {
-  //     promptLinkLabel: 'зарегистрироваться',
-  //     submitButtonLabel: 'войти',
-  //   },
-  //   "signup": {
-  //     promptLinkLabel: 'войти',
-  //     submitButtonLabel: 'Зарегистрироваться',
-  //   },
-  // };
-
   const submitButtonRef = useRef();
   const formRef = useRef();
 
@@ -70,7 +54,10 @@ const PopupForm = memo(function PopupForm(props) {
   }
 
   function checkForm() {
-    return formRef.current.checkValidity();
+    const res = formRef.current.checkValidity()
+    //   console.log('res, res;
+    return res;
+    // return formRef.current.checkValidity();
   }
 
   function blockForm() {
@@ -90,10 +77,6 @@ const PopupForm = memo(function PopupForm(props) {
     formValidator.checkField(inputNode);
     updateErrorMessage(inputNode);
     toggleButtonState(checkForm());
-    // inputStateUpdater({
-    //   ...inputStateValues,
-    //   [name]: value,
-    // });
   }
 
   function handleSubmit(event) {
@@ -104,12 +87,6 @@ const PopupForm = memo(function PopupForm(props) {
     } else {
       setPopupOpenVariable(false);;
     }
-    // const badRes = updateData(inputStateValues);
-    // if (badRes) {
-    //   console.log('badRes', badRes);
-    //   openMessagePopup(badRes.message);
-    //   unBlockForm();
-    // }
   }
 
   useEffect(() => {
@@ -119,8 +96,8 @@ const PopupForm = memo(function PopupForm(props) {
   }, [apiResponseObtained]);
 
   useEffect(() => {
-    checkForm();
-  }, []);
+    toggleButtonState(checkForm());
+  });
 
   return (
     <div className="popup__content popup__content_type_form">

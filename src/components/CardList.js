@@ -4,9 +4,8 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 const CardList = memo(function CardList(props) {
   const {
-    imageZoom,
     cards,
-    handlePopupControlAction,
+    setSelectedCard,
     handleCardLike,
     handleCardDelete,
     onesOwnCardsOnly,
@@ -29,8 +28,7 @@ const CardList = memo(function CardList(props) {
         return <Card
           key={`${index}_${cardData._id}`}
           cardData={cardData}
-          handlePopupControlAction={handlePopupControlAction}
-          popupName={imageZoom.name}
+          setSelectedCard={setSelectedCard}
           onCardLike={handleCardLike}
           onCardDelete={handleCardDelete}
         />;

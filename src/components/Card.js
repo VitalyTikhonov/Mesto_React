@@ -6,8 +6,7 @@ const Card = memo(function Card(props) {
   const {
     cardData,
     cardData: { _id, name, link, owner, likes },
-    handlePopupControlAction,
-    popupName,
+    setSelectedCard,
     onCardLike,
     onCardDelete,
   } = props;
@@ -18,13 +17,7 @@ const Card = memo(function Card(props) {
   const isLiked = likes.some((_id) => _id === currentUser._id);
 
   function handleImageClick() {
-    const eventImitation = {
-      target: {
-        id: popupName + 'OpenElem',
-        imageUrl: link,
-      },
-    }
-    handlePopupControlAction(eventImitation);
+    setSelectedCard(link);
   }
 
   function handleLikeClick() {

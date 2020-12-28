@@ -1,13 +1,12 @@
 import PopupForm from './PopupForm';
 import PopupImageView from './PopupImageView';
 import closeImage from '../images/close.svg';
-import { memo, useEffect } from 'react';
+import { memo, useEffect, useRef } from 'react';
 
 const Popup = memo(function Popup(props) {
   const {
     contentsConfig,
-    contentsConfig: { name },
-    handlePopupControlAction,
+    controlPopupDisplay,
     setPopupOpenVariable,
     updateData,
     InputSet,
@@ -22,12 +21,16 @@ const Popup = memo(function Popup(props) {
     setApiResponseObtained,
   } = props;
 
+  const popupRef = useRef();
+
+  function handleCloseIconClick() {
+    controlPopupDisplay(false);
+  }
+
   useEffect(() => {
-    const popup = document.getElementById(`${name}Popup`)
     function handleEscapeAndClickBeyond(event) {
-      if (event.key === 'Escape' || (event.type === 'click' && event.target === popup)) {
-        const eventImitation = { target: { id: name + 'OpenElem' } }
-        handlePopupControlAction(eventImitation);
+      if (event.key === 'Escape' || (event.type === 'click' && event.target === popupRef.current)) {
+        controlPopupDisplay(false);
       }
     }
 
@@ -41,14 +44,13 @@ const Popup = memo(function Popup(props) {
   });
 
   return (
-    <div className="popup popup_is-open" id={name + 'Popup'} tabIndex={0}>
+    <div className="popup popup_is-open" ref={popupRef} tabIndex={0}>
       <div className="popup__slot">
         <img
           src={closeImage}
           alt="Close"
           className="popup__close"
-          id={name + 'OpenElem'}
-          onClick={handlePopupControlAction}
+          onClick={handleCloseIconClick}
         />
         {(InputSet || auxPopupText) &&
           <PopupForm
@@ -58,7 +60,6 @@ const Popup = memo(function Popup(props) {
             inputStateValues={inputStateValues}
             inputStateUpdater={inputStateUpdater}
             toggleAuthDialog={toggleAuthDialog}
-            // handlePopupControlAction={handlePopupControlAction}
             setPopupOpenVariable={setPopupOpenVariable}
             // auxPopup={auxPopup}
             auxPopupText={auxPopupText}
@@ -73,3 +74,5 @@ const Popup = memo(function Popup(props) {
 });
 
 export default Popup;
+
+// document.activeElement.blur(); // Чтобы попап не закрывался по Enter

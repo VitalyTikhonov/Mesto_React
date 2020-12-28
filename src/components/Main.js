@@ -7,8 +7,11 @@ import CardList from './CardList';
 
 const Main = memo(function Main(props) {
   const {
-    popupMap: { form, imageZoom },
-    handlePopupControlAction,
+    popupMap: { form },
+    setIsEditAvatarPopupOpen,
+    setIsEditProfilePopupOpen,
+    setIsAddCardPopupOpen,
+    setSelectedCard,
     cards,
     handleCardLike,
     handleCardDelete,
@@ -20,9 +23,8 @@ const Main = memo(function Main(props) {
         <Route exact path="/">
           <ProjectInfo />
           <CardList
-            imageZoom={imageZoom}
             cards={cards}
-            handlePopupControlAction={handlePopupControlAction}
+            setSelectedCard={setSelectedCard}
             handleCardLike={handleCardLike}
             handleCardDelete={handleCardDelete}
           />
@@ -32,12 +34,13 @@ const Main = memo(function Main(props) {
           <ProtectedRoute
             component={UserProfile}
             form={form}
-            handlePopupControlAction={handlePopupControlAction}
+            setIsEditAvatarPopupOpen={setIsEditAvatarPopupOpen}
+            setIsEditProfilePopupOpen={setIsEditProfilePopupOpen}
+            setIsAddCardPopupOpen={setIsAddCardPopupOpen}
           />
           <CardList
-            imageZoom={imageZoom}
             cards={cards}
-            handlePopupControlAction={handlePopupControlAction}
+            setSelectedCard={setSelectedCard}
             handleCardLike={handleCardLike}
             handleCardDelete={handleCardDelete}
             onesOwnCardsOnly="true"

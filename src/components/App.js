@@ -177,38 +177,6 @@ function App() {
     setLoginPopupOpen(!isLoginPopupOpen);
   }
 
-  /* просто прокидывать сами стейт-сеттеры? */
-  function handlePopupControlAction(event) {
-    switch (event.target.id) {
-      case `${popupMap.form.signup.name}OpenElem`:
-        setSignupPopupOpen(!isSignupPopupOpen);
-        break;
-      case `${popupMap.form.login.name}OpenElem`:
-        setLoginPopupOpen(!isLoginPopupOpen);
-        break;
-      case `${popupMap.form.editProfile.name}OpenElem`:
-        setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
-        break;
-      case `${popupMap.form.changePhoto.name}OpenElem`:
-        setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
-        break;
-      case `${popupMap.form.newPlace.name}OpenElem`:
-        setIsAddCardPopupOpen(!isAddCardPopupOpen);
-        break;
-      case `${popupMap.form.message.name}OpenElem`:
-        setIsMessagePopupOpen(!isMessagePopupOpen);
-        break;
-      case `${popupMap.imageZoom.name}OpenElem`:
-        const link = event.target.imageUrl;
-        link
-          ? setSelectedCard(link)
-          : setSelectedCard(null);
-        break;
-      default:
-    }
-    document.activeElement.blur(); // Чтобы попап не закрывался по Enter
-  }
-
   useEffect(function () {
     // console.log('fetchUserData useEffect');
     async function fetchUserData() {
@@ -245,15 +213,17 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
         <div className="root">
           <Header
-            popupMap={popupMap}
-            handlePopupControlAction={handlePopupControlAction}
             loginStatus={loginStatus}
             logout={logout}
+            setLoginPopupOpen={setLoginPopupOpen}
           />
 
           <Main
             popupMap={popupMap}
-            handlePopupControlAction={handlePopupControlAction}
+            setIsEditAvatarPopupOpen={setIsEditAvatarPopupOpen}
+            setIsEditProfilePopupOpen={setIsEditProfilePopupOpen}
+            setIsAddCardPopupOpen={setIsAddCardPopupOpen}
+            setSelectedCard={setSelectedCard}
             cards={cards}
             handleCardLike={handleCardLike}
             handleCardDelete={handleCardDelete}
@@ -268,7 +238,7 @@ function App() {
               inputStateUpdater={setSignupValues}
               updateData={signup}
               // setAuxPopupText={setAuxPopupText}
-              handlePopupControlAction={handlePopupControlAction}
+              controlPopupDisplay={setSignupPopupOpen}
               toggleAuthDialog={toggleAuthDialog}
               apiResponseObtained={apiResponseObtained}
               setApiResponseObtained={setApiResponseObtained}
@@ -283,7 +253,7 @@ function App() {
               inputStateUpdater={setLoginValues}
               updateData={login}
               // setAuxPopupText={setAuxPopupText}
-              handlePopupControlAction={handlePopupControlAction}
+              controlPopupDisplay={setLoginPopupOpen}
               toggleAuthDialog={toggleAuthDialog}
               apiResponseObtained={apiResponseObtained}
               setApiResponseObtained={setApiResponseObtained}
@@ -298,7 +268,7 @@ function App() {
               inputStateUpdater={setEditProfileValues}
               updateData={updateUserData}
               // setAuxPopupText={setAuxPopupText}
-              handlePopupControlAction={handlePopupControlAction}
+              controlPopupDisplay={setIsEditProfilePopupOpen}
               apiResponseObtained={apiResponseObtained}
               setApiResponseObtained={setApiResponseObtained}
             />
@@ -310,7 +280,7 @@ function App() {
               InputSet={ChangePhotoInputSet}
               inputStateValues={changePhotoValues}
               inputStateUpdater={setChangePhotoValues}
-              handlePopupControlAction={handlePopupControlAction}
+              controlPopupDisplay={setIsEditAvatarPopupOpen}
               updateData={updateUserAvatar}
               // setAuxPopupText={setAuxPopupText}
               apiResponseObtained={apiResponseObtained}
@@ -324,7 +294,7 @@ function App() {
               InputSet={NewPlaceInputSet}
               inputStateValues={newPlaceValues}
               inputStateUpdater={setNewPlaceValues}
-              handlePopupControlAction={handlePopupControlAction}
+              controlPopupDisplay={setIsAddCardPopupOpen}
               updateData={saveNewPlaceData}
               // setAuxPopupText={setAuxPopupText}
               apiResponseObtained={apiResponseObtained}
@@ -336,7 +306,7 @@ function App() {
               // auxPopup={popupMap.form.message}
               auxPopupText={auxPopupText}
               contentsConfig={popupMap.form.message}
-              handlePopupControlAction={handlePopupControlAction}
+              controlPopupDisplay={setIsMessagePopupOpen}
               setPopupOpenVariable={setIsMessagePopupOpen}
               apiResponseObtained={apiResponseObtained}
               setApiResponseObtained={setApiResponseObtained}
@@ -346,9 +316,7 @@ function App() {
             <Popup
               contentsConfig={popupMap.imageZoom}
               card={selectedCard}
-              handlePopupControlAction={handlePopupControlAction}
-              auxPopup={popupMap.form.message}
-              auxPopupText={auxPopupText}
+              controlPopupDisplay={setSelectedCard}
             />
           )}
 

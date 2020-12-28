@@ -4,14 +4,10 @@ import logoImage from '../images/logo.svg';
 
 const Header = memo(function Header(props) {
   const {
-    popupMap,
-    handlePopupControlAction,
     loginStatus,
     logout,
+    setLoginPopupOpen,
   } = props;
-  const {
-    form: { login },
-  } = popupMap;
 
   const [mobileView, setMobileView] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -20,8 +16,7 @@ const Header = memo(function Header(props) {
     if (loginStatus === 'loggedIn') {
       logout();
     } else {
-      const eventImitation = { target: { id: login.name + 'OpenElem' } }
-      handlePopupControlAction(eventImitation);
+      setLoginPopupOpen(true);
     }
     toggleMobileMenuOpen();
   }
