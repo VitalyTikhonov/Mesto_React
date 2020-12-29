@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef } from 'react';
+import { memo, useEffect, useState, useRef } from 'react';
 import formValidator from '../utils/FormValidator';
 // import { popupConfig } from '../constants/constants';
 
@@ -12,17 +12,22 @@ const PopupForm = memo(function PopupForm(props) {
     updateData,
     toggleAuthDialog,
     // handlePopupControlAction,
-    setPopupOpenVariable,
+    controlPopupDisplay,
     auxPopupText,
     // setAuxPopupText,
     apiResponseObtained,
     setApiResponseObtained,
+    setAllowPopupClose,
   } = props; // popupName введено вместо name для исключения конфликта с CurrentUserContext
 
-  const submitButtonRef = useRef();
+  const [allowInput, setAllowInput] = useState(true);
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [buttonLabel, setButtonLabel] = useState(submitButtonLabel);
+
   const formRef = useRef();
 
   function handleFieldChange(event) {
+    // setButtonDisabled(!checkForm());
     const { name, value } = event.target;
     inputStateUpdater({
       ...inputStateValues,
@@ -36,68 +41,69 @@ const PopupForm = memo(function PopupForm(props) {
     currentErrorMessageElement.textContent = inputNode.validationMessage;
   }
 
-  function toggleButtonState(isFormValid) {
-    // console.log('isFormValid', isFormValid);
-    if (isFormValid) {
-      submitButtonRef.current.removeAttribute('disabled');
-    } else {
-      submitButtonRef.current.setAttribute('disabled', 'disabled');
-    }
-  }
-
   function toggleButtonText(normal) {
     if (normal) {
-      submitButtonRef.current.textContent = submitButtonLabel;
+      setButtonLabel(submitButtonLabel);
     } else {
-      submitButtonRef.current.textContent = 'Подождите...';
+      setButtonLabel('Подождите...');
     }
   }
 
   function checkForm() {
-    const res = formRef.current.checkValidity()
-    //   console.log('res, res;
-    return res;
-    // return formRef.current.checkValidity();
+    // const res = formRef.current.checkValidity();
+    // console.log('res', res);
+    // return res;
+    return formRef.current.checkValidity();
   }
 
   function blockForm() {
-    // toggleInputsState(false);
-    toggleButtonState(false);
+    setButtonDisabled(true);
+    // console.log('buttonDisabled', buttonDisabled);
+    setAllowInput(false);
     toggleButtonText(false);
+    setAllowPopupClose(false);
   }
 
   function unBlockForm() {
-    // toggleInputsState(true);
-    toggleButtonState(checkForm());
+    setButtonDisabled(false);
+    setAllowInput(true);
     toggleButtonText(true);
+    setAllowPopupClose(true);
   }
 
   function handleFieldInput(event) {
     const inputNode = event.target;
     formValidator.checkField(inputNode);
     updateErrorMessage(inputNode);
-    toggleButtonState(checkForm());
+    // setButtonDisabled(!checkForm());
+    /* Если и здесь, и в useEffect, то это дублирование операции. Если только здесь, то "Редактировать профиль"
+    открывается с заблок. кнопкой несмотря на правильную автоподстановку */
   }
+
 
   function handleSubmit(event) {
     event.preventDefault();
     if (InputSet) {
       blockForm();
-      updateData(inputStateValues)
+      // setTimeout(() => updateData(inputStateValues), 5000);
+      updateData(inputStateValues);
     } else {
-      setPopupOpenVariable(false);;
+      controlPopupDisplay(false);
     }
   }
 
   useEffect(() => {
     apiResponseObtained && unBlockForm();
     setApiResponseObtained(false);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apiResponseObtained]);
 
   useEffect(() => {
-    toggleButtonState(checkForm());
-  });
+    setButtonDisabled(!checkForm());
+    // console.log('popupName inputStateValues', popupName, inputStateValues);
+  }, [inputStateValues]);
+  /* Если добавить здесь [], кнопка в форме "Редактировать профиль" не разблокируется несмотря на правильную автоподстановку.
+  Если не указывать массив зависимостей вообще, кнопка отправки не блокируется на время ожидания запроса. */
 
   return (
     <div className="popup__content popup__content_type_form">
@@ -109,17 +115,19 @@ const PopupForm = memo(function PopupForm(props) {
             handleFieldInput={handleFieldInput}
             inputStateValues={inputStateValues}
             inputStateUpdater={inputStateUpdater}
+            allowInput={allowInput}
           />
         }
         {auxPopupText &&
           <p>{auxPopupText}</p>
         }
-        <button type="submit" className="button button__square_black-outline-white popup__button" ref={submitButtonRef} >{submitButtonLabel}</button>
+        <button type="submit" className="button button__square_black-outline-white popup__button" disabled={InputSet ? buttonDisabled : false} autoFocus>{buttonLabel}</button>
+        {/* autoFocus – чтобы малое окно закрывалось по Enter (поскольку в нем нет полей, само оно в фокус не попадало; в попапах с формами
+          этот автофокус снимается за счет автоподстановки) */}
         {
-          (popupName === "login" || popupName === "signup")
-          && (
+          (popupName === "login" || popupName === "signup") && (
             <p className="popup__prompt">
-              или <span className="popup__prompt-link" onClick={toggleAuthDialog}>{promptLinkLabel}</span>
+              или <span className="popup__prompt-link" onClick={allowInput ? toggleAuthDialog : null}>{promptLinkLabel}</span>
             </p>
           )
         }

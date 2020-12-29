@@ -1,13 +1,12 @@
 import PopupForm from './PopupForm';
 import PopupImageView from './PopupImageView';
 import closeImage from '../images/close.svg';
-import { memo, useEffect, useRef } from 'react';
+import { memo, useEffect, useState, useRef } from 'react';
 
 const Popup = memo(function Popup(props) {
   const {
     contentsConfig,
     controlPopupDisplay,
-    setPopupOpenVariable,
     updateData,
     InputSet,
     inputStateValues,
@@ -21,15 +20,19 @@ const Popup = memo(function Popup(props) {
     setApiResponseObtained,
   } = props;
 
+  const [allowPopupClose, setAllowPopupClose] = useState(true);
+
   const popupRef = useRef();
 
   function handleCloseIconClick() {
-    controlPopupDisplay(false);
+    if (allowPopupClose) {
+      controlPopupDisplay(false);
+    }
   }
 
   useEffect(() => {
     function handleEscapeAndClickBeyond(event) {
-      if (event.key === 'Escape' || (event.type === 'click' && event.target === popupRef.current)) {
+      if (allowPopupClose && (event.key === 'Escape' || (event.type === 'click' && event.target === popupRef.current))) {
         controlPopupDisplay(false);
       }
     }
@@ -60,12 +63,13 @@ const Popup = memo(function Popup(props) {
             inputStateValues={inputStateValues}
             inputStateUpdater={inputStateUpdater}
             toggleAuthDialog={toggleAuthDialog}
-            setPopupOpenVariable={setPopupOpenVariable}
+            controlPopupDisplay={controlPopupDisplay}
             // auxPopup={auxPopup}
             auxPopupText={auxPopupText}
             // setAuxPopupText={setAuxPopupText}
             apiResponseObtained={apiResponseObtained}
             setApiResponseObtained={setApiResponseObtained}
+            setAllowPopupClose={setAllowPopupClose}
           />}
         {card && <PopupImageView card={card} />}
       </div>

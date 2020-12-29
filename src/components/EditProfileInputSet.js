@@ -7,6 +7,7 @@ const EditProfileInputSet = memo(function EditProfileInputSet(props) {
     handleFieldInput,
     inputStateValues,
     inputStateUpdater,
+    allowInput,
   } = props;
 
   const { userDescription, userName } = useContext(CurrentUserContext);
@@ -16,13 +17,14 @@ const EditProfileInputSet = memo(function EditProfileInputSet(props) {
       userName,
       userDescription,
     });
-  }, [inputStateUpdater, userName, userDescription]); // updater добавлен, чтобы линтер не ругался. Как обойти?
+  }, []); // updater добавлен, чтобы линтер не ругался. Как обойти?
+  // }, [userName, userDescription]); // updater добавлен, чтобы линтер не ругался. Как обойти?
 
   return (
     <>
-      <input type="text" name="userName" value={inputStateValues.userName} id="user-name" className="popup__input" onChange={handleFieldChange} onInput={handleFieldInput} placeholder="Имя" required minLength={2} maxLength={30} />
+      <input type="text" name="userName" value={inputStateValues.userName} id="user-name" className="popup__input" onChange={handleFieldChange} onInput={handleFieldInput} placeholder="Имя" required minLength={2} maxLength={30} disabled={!allowInput} />
       <span className="popup__error" id="user-name-error" />
-      <input type="text" name="userDescription" value={inputStateValues.userDescription} id="user-description" className="popup__input" onChange={handleFieldChange} onInput={handleFieldInput} placeholder="О себе" required minLength={2} maxLength={30} />
+      <input type="text" name="userDescription" value={inputStateValues.userDescription} id="user-description" className="popup__input" onChange={handleFieldChange} onInput={handleFieldInput} placeholder="О себе" required minLength={2} maxLength={30} disabled={!allowInput} />
       <span className="popup__error" id="user-description-error" />
     </>
   )

@@ -41,6 +41,7 @@ function App() {
     password: '',
     email: '',
   });
+
   const [loginValues, setLoginValues] = useState({
     email: '',
     password: '',
@@ -178,7 +179,7 @@ function App() {
   }
 
   useEffect(function () {
-    // console.log('fetchUserData useEffect');
+    // console.log('useEffect start');
     async function fetchUserData() {
       try {
         const currentUserData = await api.getUserInfo();
@@ -189,13 +190,12 @@ function App() {
         const errResJson = await err.json();
         console.log(errResJson);
         setLoginStatus('loggedOut');
+        // console.log('fetchUserData');
       }
     }
-    fetchUserData();
-  }, [loginStatus]);
 
-  useEffect(function () {
-    // console.log('fetchCards useEffect');
+    fetchUserData();
+
     async function fetchCards() {
       try {
         const cards = await api.getCards();
@@ -203,10 +203,28 @@ function App() {
       } catch (err) {
         const errResJson = await err.json();
         console.log(errResJson);
+        // console.log('fetchCards');
       }
     }
+
     fetchCards();
-  }, [loginStatus]);
+    // console.log('useEffect end');
+  }, [currentUser._id]);
+  // }, [loginStatus]);
+
+  // useEffect(function () {
+  //   // console.log('fetchCards useEffect');
+  //   async function fetchCards() {
+  //     try {
+  //       const cards = await api.getCards();
+  //       setCards(cards);
+  //     } catch (err) {
+  //       const errResJson = await err.json();
+  //       console.log(errResJson);
+  //     }
+  //   }
+  //   fetchCards();
+  // }, [loginStatus]);
 
   return (
     <LoginStatusContext.Provider value={loginStatus}>
@@ -307,7 +325,6 @@ function App() {
               auxPopupText={auxPopupText}
               contentsConfig={popupMap.form.message}
               controlPopupDisplay={setIsMessagePopupOpen}
-              setPopupOpenVariable={setIsMessagePopupOpen}
               apiResponseObtained={apiResponseObtained}
               setApiResponseObtained={setApiResponseObtained}
             />
@@ -317,6 +334,7 @@ function App() {
               contentsConfig={popupMap.imageZoom}
               card={selectedCard}
               controlPopupDisplay={setSelectedCard}
+              inputStateValues={null} /* Чтобы не было ошибки о смене неуправляемых компонентов на управляемые */
             />
           )}
 
