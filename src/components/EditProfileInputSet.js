@@ -17,8 +17,7 @@ const EditProfileInputSet = memo(function EditProfileInputSet(props) {
       userName,
       userDescription,
     });
-  }, []); // updater добавлен, чтобы линтер не ругался. Как обойти?
-  // }, [userName, userDescription]); // updater добавлен, чтобы линтер не ругался. Как обойти?
+  }, [inputStateUpdater, userDescription, userName]); // updater добавлен, чтобы линтер не ругался. Как обойти?
 
   return (
     <>
