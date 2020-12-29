@@ -18,7 +18,7 @@ A mock project I am making to practice React.js
 #### About
 A website, where you can save photos of places you like and see images posted by others.
 #### Access
-To be deployed at
+Visit it at
 - http://vitaliytikhonov.ru/webdev/projects/mesto_react/
 
 #### Project functionality
@@ -39,7 +39,7 @@ To work in conjunction with this backend https://github.com/VitalyTikhonov/Mesto
 #### Описание
 Сайт для публикации ссылок на фотографии интересных мест.
 #### Размещение
-Планирую опубликовать по адресу
+Доступен по адресу
 - http://vitaliytikhonov.ru/webdev/projects/mesto_react/
 
 #### Функционал проекта
