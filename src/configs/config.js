@@ -18,6 +18,7 @@ const SUBPATH = process.env.NODE_ENV === 'development'
 const API_URL = `${DOMAIN}${SUBPATH}`;
 
 export {
+  SUBPATH,
   API_URL,
   YANDEX_TOKEN,
   connectToYandex,

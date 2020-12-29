@@ -1,6 +1,6 @@
 {
-  "short_name": "Место React",
-  "name": "Место",
+  "short_name": "mesto",
+  "name": "mesto",
   "icons": [
     {
         "src": "favicon/android-chrome-192x192.png",

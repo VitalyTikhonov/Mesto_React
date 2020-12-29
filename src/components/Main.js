@@ -4,6 +4,7 @@ import ProtectedRoute from './ProtectedRoute';
 import ProjectInfo from './ProjectInfo';
 import UserProfile from './UserProfile';
 import CardList from './CardList';
+import { SUBPATH } from '../configs/config';
 
 const Main = memo(function Main(props) {
   const {
@@ -20,7 +21,7 @@ const Main = memo(function Main(props) {
   return (
     <main className="main">
       <Switch>
-        <Route exact path="/">
+        <Route exact path={`${SUBPATH}/`}>
           <ProjectInfo />
           <CardList
             cards={cards}
@@ -30,7 +31,7 @@ const Main = memo(function Main(props) {
           />
         </Route>
 
-        <Route path="/user-profile">
+        <Route path={`${SUBPATH}/user-profile`}>
           <ProtectedRoute
             component={UserProfile}
             form={form}

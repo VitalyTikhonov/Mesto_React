@@ -2,6 +2,7 @@ import { memo, useContext } from 'react';
 import { LoginStatusContext } from '../contexts/LoginStatusContext';
 import { Redirect } from "react-router-dom";
 import Loader from './Loader';
+import { SUBPATH } from '../configs/config';
 
 const ProtectedRoute = memo(function ProtectedRoute({ component: Component, ...props }) {
   const loginStatus = useContext(LoginStatusContext);
@@ -10,7 +11,7 @@ const ProtectedRoute = memo(function ProtectedRoute({ component: Component, ...p
   if (loginStatus === 'unknown') {
     return <Loader />
   } else {
-    return loginStatus === 'loggedIn' ? <Component {...props} /> : <Redirect to="/" />;
+    return loginStatus === 'loggedIn' ? <Component {...props} /> : <Redirect to={`${SUBPATH}/`} />;
   }
   // return (
   //   // <Route exact path="/user-profile">
