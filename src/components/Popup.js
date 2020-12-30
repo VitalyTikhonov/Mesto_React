@@ -1,5 +1,6 @@
 import PopupForm from './PopupForm';
 import PopupImageView from './PopupImageView';
+import PageDimmer from './PageDimmer';
 import closeImage from '../images/close.svg';
 import { memo, useEffect, useState, useRef } from 'react';
 
@@ -25,37 +26,38 @@ const Popup = memo(function Popup(props) {
   const popupRef = useRef();
   const popupSlotRef = useRef();
 
-  function handleCloseIconClick() {
+  function handleCloseClick() {
     if (allowPopupClose) {
       controlPopupDisplay(false);
     }
   }
 
   useEffect(() => {
-    function handleEscapeAndClickBeyond(event) {
-      if (allowPopupClose && (event.key === 'Escape' || (event.type === 'click' && event.target === popupRef.current))) {
+    function handleEscape(event) {
+      if (allowPopupClose && event.key === 'Escape') {
         controlPopupDisplay(false);
       }
       // console.log('event.target', event.target, '\nevent.currentTarget', event.currentTarget, '\nevent.type', event.type);
     }
 
-    document.addEventListener('keydown', handleEscapeAndClickBeyond);
-    document.addEventListener('click', handleEscapeAndClickBeyond);
+    document.addEventListener('keydown', handleEscape);
+    document.addEventListener('click', handleEscape);
 
     return () => {
-      document.removeEventListener('keydown', handleEscapeAndClickBeyond);
-      document.removeEventListener('click', handleEscapeAndClickBeyond);
+      document.removeEventListener('keydown', handleEscape);
+      document.removeEventListener('click', handleEscape);
     };
   });
 
   return (
     <div className="popup popup_is-open" ref={popupRef} tabIndex={0}>
+      <PageDimmer handleClick={handleCloseClick} />
       <div className="popup__slot" ref={popupSlotRef}>
         <img
           src={closeImage}
           alt="Close"
           className="popup__close"
-          onClick={handleCloseIconClick}
+          onClick={handleCloseClick}
         />
         {(InputSet || auxPopupText) &&
           <PopupForm

@@ -1,5 +1,6 @@
 import { memo, useState, useEffect } from 'react';
 import NavBar from './NavBar';
+import PageDimmer from './PageDimmer';
 import logoImage from '../images/logo.svg';
 
 const Header = memo(function Header(props) {
@@ -45,7 +46,7 @@ const Header = memo(function Header(props) {
       }
       {(!mobileView || mobileMenuOpen) &&
         <div className="header__menu" >
-          <div className="header__menu-page-dimmer" onClick={toggleMobileMenuOpen} />
+          {mobileView && <PageDimmer handleClick={toggleMobileMenuOpen} />}
           <NavBar
             toggleMobileMenuOpen={toggleMobileMenuOpen}
             handleAuthButtonClick={handleAuthButtonClick}

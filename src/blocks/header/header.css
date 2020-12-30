@@ -1,6 +1,5 @@
 @import url(./__menu/header__menu.css);
 @import url(./__auth-button/header__auth-button);
-@import url(./__menu-page-dimmer/header__menu-page-dimmer.css);
 
 .header {
   min-height: 132px;

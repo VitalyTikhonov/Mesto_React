@@ -1,8 +1,8 @@
-import './preloader.css';
+import './Loader.css';
 
 function Loader() {
   return (
-    <i className="circle-preloader"/>
+    <i className="loader"/>
   );
 }
 
