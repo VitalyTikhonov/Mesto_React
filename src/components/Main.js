@@ -8,7 +8,6 @@ import { SUBPATH } from '../configs/config';
 
 const Main = memo(function Main(props) {
   const {
-    popupMap: { form },
     setIsEditAvatarPopupOpen,
     setIsEditProfilePopupOpen,
     setIsAddCardPopupOpen,
@@ -34,7 +33,6 @@ const Main = memo(function Main(props) {
         <Route path={`${SUBPATH}/user-profile`}>
           <ProtectedRoute
             component={UserProfile}
-            form={form}
             setIsEditAvatarPopupOpen={setIsEditAvatarPopupOpen}
             setIsEditProfilePopupOpen={setIsEditProfilePopupOpen}
             setIsAddCardPopupOpen={setIsAddCardPopupOpen}

@@ -237,7 +237,6 @@ function App() {
           />
 
           <Main
-            popupMap={popupMap}
             setIsEditAvatarPopupOpen={setIsEditAvatarPopupOpen}
             setIsEditProfilePopupOpen={setIsEditProfilePopupOpen}
             setIsAddCardPopupOpen={setIsAddCardPopupOpen}
