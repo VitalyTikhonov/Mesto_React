@@ -4,7 +4,10 @@ import { NavLink } from 'react-router-dom';
 import { SUBPATH } from '../configs/config';
 
 const NavBar = memo(function NavBar(props) {
+  const { handleAuthButtonClick } = props;
+
   const loginStatus = useContext(LoginStatusContext);
+
   return (
     <nav className="nav-bar">
       <NavLink
@@ -22,6 +25,13 @@ const NavBar = memo(function NavBar(props) {
         >
           Профиль
         </NavLink>}
+      <button
+        type="button"
+        className="button button__square_black-outline-white header__auth-button"
+        onClick={handleAuthButtonClick}
+      >
+        {loginStatus === 'loggedIn' ? 'Выйти' : 'Войти'}
+      </button>
     </nav>
   )
 });

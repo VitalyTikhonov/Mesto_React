@@ -45,20 +45,16 @@ const Header = memo(function Header(props) {
       }
       {(!mobileView || mobileMenuOpen) &&
         <div className="header__menu" >
-          <NavBar toggleMobileMenuOpen={toggleMobileMenuOpen} />
-          <button
-            type="button"
-            className="button button__square_black-outline-white header__auth-button"
-            // id={login.name + 'OpenElem'}
-            onClick={handleAuthButtonClick}
-          >
-            {loginStatus === 'loggedIn' ? 'Выйти' : 'Войти'}
-          </button>
+          <div className="header__menu-page-dimmer" onClick={toggleMobileMenuOpen} />
+          <NavBar
+            toggleMobileMenuOpen={toggleMobileMenuOpen}
+            handleAuthButtonClick={handleAuthButtonClick}
+          />
         </div>
       }
-      {mobileMenuOpen &&
+      {/* {mobileMenuOpen &&
         <div className="header__menu-page-dimmer" onClick={toggleMobileMenuOpen} />
-      }
+      } */}
     </header>
   )
 });

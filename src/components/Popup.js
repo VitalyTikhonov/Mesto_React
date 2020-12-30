@@ -23,6 +23,7 @@ const Popup = memo(function Popup(props) {
   const [allowPopupClose, setAllowPopupClose] = useState(true);
 
   const popupRef = useRef();
+  const popupSlotRef = useRef();
 
   function handleCloseIconClick() {
     if (allowPopupClose) {
@@ -35,6 +36,7 @@ const Popup = memo(function Popup(props) {
       if (allowPopupClose && (event.key === 'Escape' || (event.type === 'click' && event.target === popupRef.current))) {
         controlPopupDisplay(false);
       }
+      // console.log('event.target', event.target, '\nevent.currentTarget', event.currentTarget, '\nevent.type', event.type);
     }
 
     document.addEventListener('keydown', handleEscapeAndClickBeyond);
@@ -48,7 +50,7 @@ const Popup = memo(function Popup(props) {
 
   return (
     <div className="popup popup_is-open" ref={popupRef} tabIndex={0}>
-      <div className="popup__slot">
+      <div className="popup__slot" ref={popupSlotRef}>
         <img
           src={closeImage}
           alt="Close"
