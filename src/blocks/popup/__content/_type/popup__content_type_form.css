@@ -8,6 +8,7 @@
 
 @media screen and (max-width: 540px) {
     .popup__content_type_form {
-        width: calc(100% - 60px);
+      width: 90vw;
+      padding: 20px;
     }
 }
