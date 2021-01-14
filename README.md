@@ -17,9 +17,10 @@ A mock project I am making to practice React.js
 
 #### About
 A website, where you can save photos of places you like and see images posted by others.
+(The file structure is still to be optimized, as the project was rewritten from native JS and the principal scope was to practice making React components and state management.)
 #### Access
 Visit it at
-- http://vitaliytikhonov.ru/webdev/projects/mesto_react/
+- http://vitaliytikhonov.ru/webdev/projects/mesto/
 
 #### Project functionality
 - User signup, signin and signout
@@ -38,9 +39,10 @@ To work in conjunction with this backend https://github.com/VitalyTikhonov/Mesto
 ***
 #### Описание
 Сайт для публикации ссылок на фотографии интересных мест.
+(Файловая структура подлежит оптимизации, т. к. проект переписывался с нативного JS, основной задачей было попрактиковаться в построении иерархии Реакт-компонентов и управлении состоянием.)
 #### Размещение
 Доступен по адресу
-- http://vitaliytikhonov.ru/webdev/projects/mesto_react/
+- http://vitaliytikhonov.ru/webdev/projects/mesto/
 
 #### Функционал проекта
 - Регистрация, вход и выход пользователя.
